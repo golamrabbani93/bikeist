@@ -74,7 +74,8 @@ svg {
 	} */
 }
 .active {
-	color: #e2211c;
+	color: #e2211c !important;
+	display: block;
 }
 .menu ul > li > a {
 	display: inline-block;
