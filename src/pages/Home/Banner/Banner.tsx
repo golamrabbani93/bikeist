@@ -1,37 +1,59 @@
-import banner1 from '../../../assets/images/Banner/Banner-1.jpg';
-import banner2 from '../../../assets/images/Banner/Banner-2.jpg';
-import banner4 from '../../../assets/images/Banner/Banner-4.jpg';
 import {Carousel} from 'antd';
 import SingleBanner from './SingleBanner/SingleBanner';
+
 const bannerData = [
 	{
-		image: banner1,
-		quote: 'Empowering Connectivity',
-		description:
-			'Revolutionizing global communication by ensuring technology reaches everyone, bridging gaps, and fostering seamless interactions.',
+		image: 'https://i.ibb.co/qFwzSGP/hero-1.jpg',
+		quote: 'Flexible Rental Options',
+		description: 'Enjoy convenient hourly, daily, and weekly rentals that fit your schedule',
 	},
 	{
-		image: banner2,
-		quote: 'Driving Innovation',
+		image: 'https://i.ibb.co/0FDFRtz/hero-2.jpg',
+		quote: 'Affordable Rates',
 		description:
-			'Pushing boundaries in tech, pioneering solutions that shape a smarter, interconnected world, and advancing society through continuous innovation.',
+			'Get the best value with transparent pricing and no surprise charges—rent with confidence and ease.',
 	},
 	{
-		image: banner4,
-		quote: 'Transforming Future',
+		image: 'https://i.ibb.co/6PFBsc1/hero-3.jpg',
+		quote: 'Explore Anywhere, Anytime',
 		description:
-			'Redefining the future with cutting-edge ICT, creating a digitally-driven world where possibilities are limitless and progress is constant.',
+			'Discover new routes and hidden gems with our GPS-enabled bikes, available for rent 24/7.',
 	},
 ];
 
 const Banner = () => {
 	return (
-		<div className="text-white">
+		<div className="text-white relative">
 			<Carousel dotPosition="right" autoplay>
 				{bannerData.map((item, index) => {
 					return <SingleBanner key={index} data={item} />;
 				})}
 			</Carousel>
+			<div className="container mx-auto">
+				<div className="flex justify-center items-center w-full   absolute top-[85%]  xl:top-[80%] left-0 px-4">
+					<input
+						type="text"
+						className="w-full md:w-[50%] h-[50px] border rounded-l border-white outline-none px-4 text-white bg-transparent focus:border-primary transition-all duration-500"
+						placeholder="Search Bike"
+					/>
+					<button className="btn bg-primary hover:bg-secondary rounded-r-md h-[50px] px-2 uppercase text-white font-bold ">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							strokeWidth={1.5}
+							stroke="currentColor"
+							className="size-6 md:size-8"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+							/>
+						</svg>
+					</button>
+				</div>
+			</div>
 		</div>
 	);
 };

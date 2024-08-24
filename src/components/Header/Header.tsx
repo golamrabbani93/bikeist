@@ -26,9 +26,7 @@ const Header = () => {
 				<div className="container mx-auto">
 					<div className=" flex ">
 						<div className="flex items-center ml-10 z-10">
-							<div>
-								<img src={'https://i.ibb.co/McvXSTK/logo.png'} alt="" />
-							</div>
+							<div>{/* <img src={'https://i.ibb.co/McvXSTK/logo.png'} alt="" /> */}</div>
 						</div>
 						<div className="ham flex z-50 items-center  bg-primary  md:h-[80px] px-4 rounded-2xl">
 							<div className="cursor-pointer ">
@@ -40,7 +38,7 @@ const Header = () => {
 								{/* Sun Ion */}
 								<svg
 									onClick={toggleTheme}
-									className={`h-10 md:h-[40px] md:w-[40px] text-white mx-4 cursor-pointer ${
+									className={`h-7 md:h-[40px] md:w-[40px] text-white mx-4 cursor-pointer ${
 										theme === 'light' && 'hidden'
 									}`}
 									data-slot="icon"
@@ -62,7 +60,7 @@ const Header = () => {
 								{/* Moon Icon */}
 								<svg
 									onClick={toggleTheme}
-									className={`h-10 md:h-[40px] md:w-[40px] text-white mx-4 cursor-pointer ${
+									className={`h-7 md:h-[40px] md:w-[40px] text-white mx-4 cursor-pointer ${
 										theme === 'dark' && 'hidden'
 									}`}
 									data-slot="icon"
