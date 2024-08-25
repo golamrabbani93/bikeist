@@ -1,6 +1,7 @@
 import Banner from './Banner/Banner';
 import useScrollTop from '../../hooks/useScrollTop';
 import {useGetAllBikeQuery} from '../../redux/features/bike/bike.management.api';
+import FeaturedBike from './FeaturedBike/FeaturedBike';
 
 const Home = () => {
 	useScrollTop();
@@ -10,6 +11,7 @@ const Home = () => {
 	return (
 		<div>
 			<Banner />
+			<FeaturedBike />
 		</div>
 	);
 };
