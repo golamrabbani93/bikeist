@@ -10,14 +10,14 @@ const FeaturedBike = () => {
 		return <h2>Loading...</h2>;
 	}
 	return (
-		<div className="my-[100px]">
+		<div className="mt-[100px]">
 			<div className="container mx-auto mb-8">
 				<h2 className="uppercase text-4xl font-extrabold ml-4 text-primary text-center">
 					Available Bikes
 				</h2>
 			</div>
 
-			<div className="mb-14 ">
+			<div className="">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 					{data?.data?.slice(0, 8)?.map((item: TBike) => (
 						<Link
