@@ -4,6 +4,7 @@ import {useGetAllBikeQuery} from '../../redux/features/bike/bike.management.api'
 import FeaturedBike from './FeaturedBike/FeaturedBike';
 import Testimonial from './Testimonial/Testimonial';
 import WhyChooseUs from './WhyChooseUs/WhyChooseUs';
+import Coupons from './Coupons/Coupons';
 
 const Home = () => {
 	useScrollTop();
@@ -16,6 +17,7 @@ const Home = () => {
 			<FeaturedBike />
 			<Testimonial />
 			<WhyChooseUs />
+			<Coupons />
 		</div>
 	);
 };
