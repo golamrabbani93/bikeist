@@ -28,7 +28,7 @@ const FeaturedBike = () => {
 							<div className="relative main-banner">
 								<div className="banner-animation relative ">
 									<img src={item.image} alt="" className="w-full z-[4]" />
-									<div className="absolute top-3 left-3 bg-secondary px-4 uppercase z-20 rounded-sm">
+									<div className="absolute top-3 left-3 bg-secondary px-4 uppercase z-20 rounded-sm text-white font-bold">
 										{item.brand}
 									</div>
 									<div className="absolute bottom-3 left-0 w-full z-[4]">
