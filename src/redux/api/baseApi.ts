@@ -11,7 +11,7 @@ import {RootState} from '../store';
 import {logOut, setUser} from '../features/auth/authSlice';
 import {toast} from 'sonner';
 
-const baseaseQuery = fetchBaseQuery({
+const baseQuery = fetchBaseQuery({
 	baseUrl: 'http://localhost:5000/api',
 	prepareHeaders: (headers, {getState}) => {
 		const token = (getState() as RootState).auth.token;
@@ -28,7 +28,7 @@ const customBaseQueryWithRefressToken: BaseQueryFn<
 	BaseQueryApi,
 	DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
-	let result = await baseaseQuery(args, api, extraOptions);
+	let result = await baseQuery(args, api, extraOptions);
 
 	if (result?.error?.status === 404) {
 		const message = (result?.error?.data as {message?: string})?.message;
@@ -48,7 +48,7 @@ const customBaseQueryWithRefressToken: BaseQueryFn<
 		} else {
 			api.dispatch(logOut());
 		}
-		result = await baseaseQuery(args, api, extraOptions);
+		result = await baseQuery(args, api, extraOptions);
 
 		return result;
 	}

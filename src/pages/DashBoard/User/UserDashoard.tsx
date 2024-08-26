@@ -5,20 +5,14 @@ import PHForm from '../../../components/form/PHForm';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {toast} from 'sonner';
 import {useGetAUserQuery} from '../../../redux/features/user/user.management.api';
+import SkeletonLoader from '../../../components/Loader/SkeletonLoader/SkeletonLoader';
+import {TUserData} from '../../../types/user.type';
 
 const UserDashboard = () => {
 	const [isEditing, setIsEditing] = useState(false);
-	const {data} = useGetAUserQuery(undefined);
-	console.log('🚀🚀: UserDashboard -> data', data);
+	const {data, isLoading} = useGetAUserQuery(undefined);
 
-	// Sample user data
-	const user = {
-		name: 'John Doe',
-		email: 'johndoe@example.com',
-		phone: '123-456-7890',
-		address: '123 Main St, Anytown, USA',
-	};
-
+	const user = data?.data as TUserData;
 	const handleProfileUpdate: SubmitHandler<FieldValues> = async (data) => {
 		console.log(data);
 		try {
@@ -29,12 +23,14 @@ const UserDashboard = () => {
 			toast.error('Failed to update profile. Please try again.');
 		}
 	};
-
+	if (isLoading) {
+		return <SkeletonLoader />;
+	}
 	return (
 		<div className="min-h-screen bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
 			<div className="bg-white/30 backdrop-blur-lg p-10 rounded-xl shadow-xl w-full md:w-2/4 my-10">
 				<h2 className="text-4xl font-bold mb-8 uppercase tracking-wide text-center text-white">
-					Welcome, {user.name}
+					Welcome, {user?.name as string}
 				</h2>
 
 				{isEditing ? (
@@ -83,25 +79,25 @@ const UserDashboard = () => {
 						<div className="flex  mb-4">
 							<FaUser className="text-white text-2xl mr-4" />
 							<p className="text-lg">
-								<strong>Name:</strong> {user.name}
+								<strong>Name:</strong> {user?.name}
 							</p>
 						</div>
 						<div className="flex  mb-4">
 							<FaEnvelope className="text-white text-2xl mr-4" />
 							<p className="text-lg">
-								<strong>Email:</strong> {user.email}
+								<strong>Email:</strong> {user?.email}
 							</p>
 						</div>
 						<div className="flex  mb-4">
 							<FaPhone className="text-white text-2xl mr-4" />
 							<p className="text-lg">
-								<strong>Phone:</strong> {user.phone}
+								<strong>Phone:</strong> {user?.phone}
 							</p>
 						</div>
 						<div className="flex  mb-4">
 							<FaMapMarkerAlt className="text-white text-2xl mr-4" />
 							<p className="text-lg">
-								<strong>Address:</strong> {user.address}
+								<strong>Address:</strong> {user?.address}
 							</p>
 						</div>
 
