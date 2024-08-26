@@ -3,10 +3,38 @@ import PHForm from '../../../components/form/PHForm';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signUpSchema} from '../../../schemas/register/signUp.schema';
+import {toast} from 'sonner';
+import {TResponse} from '../../../types';
+import {useSignUpMutation} from '../../../redux/features/auth/authApi';
 
 const SignUp = () => {
-	const handleSignUp: SubmitHandler<FieldValues> = (data) => {
+	// *sign up mutation
+	const [signUp] = useSignUpMutation();
+	const handleSignUp: SubmitHandler<FieldValues> = async (data) => {
 		console.log(data);
+		const newData = {
+			...data,
+			role: 'user',
+		};
+		try {
+			const toastId = toast.loading('User Creating');
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const userInfo = (await signUp(newData)) as TResponse<any>;
+
+			if (userInfo.error) {
+				toast.error(userInfo.error.data.message, {
+					id: toastId,
+					duration: 2000,
+				});
+			} else {
+				toast.success('Sign Up Successfully', {
+					id: toastId,
+					duration: 2000,
+				});
+			}
+		} catch (error) {
+			toast.error('Something went wrong');
+		}
 	};
 	return (
 		<div className="min-h-screen bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
