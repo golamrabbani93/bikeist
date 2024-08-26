@@ -53,8 +53,8 @@ const DashBoardLayout = () => {
 						<Outlet />
 					</div>
 				</Content>
-				<Footer style={{textAlign: 'center'}}>
-					<h2 className=" uppercase text-sm">
+				<Footer style={{textAlign: 'center'}} className="bg-[#001529]">
+					<h2 className=" text-white uppercase text-sm">
 						© {new Date().getFullYear()} Bikeist. Made by{' '}
 						<Link to={`https://webrabbani.web.app/`} className="text-primary">
 							Golam rabbani
