@@ -4,6 +4,7 @@ import {getCurrentUser} from '../../redux/features/auth/authSlice';
 import {userPaths} from '../../routes/user.routes';
 import sidebarGenerator from '../../utils/sidebarGenerator';
 import {Link} from 'react-router-dom';
+import {MenuItemType} from '../../types';
 const {Sider} = Layout;
 const userRole = {
 	ADMIN: 'admin',
@@ -48,7 +49,12 @@ const Sidebar = () => {
 					BIKEIST
 				</Link>
 			</div>
-			<Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sidebarItems} />
+			<Menu
+				theme="dark"
+				mode="inline"
+				defaultSelectedKeys={['4']}
+				items={sidebarItems as MenuItemType[]}
+			/>
 		</Sider>
 	);
 };

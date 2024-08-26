@@ -20,3 +20,8 @@ export type TSidebarItem =
 			children?: TSidebarItem[];
 	  }
 	| undefined;
+export type MenuItemType = {
+	label: string;
+	key: string;
+	icon?: React.ReactNode;
+};

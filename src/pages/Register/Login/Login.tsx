@@ -24,10 +24,11 @@ const Login = () => {
 		const toastId = toast.loading('Logging in...');
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const res = (await login(data)) as TResponse<any>;
+		console.log('🚀🚀: Login -> res', res);
 
 		const token = res?.data?.token;
-		if (res.error?.data.success) {
-			toast.error(res?.error?.data?.message, {id: undefined, duration: 2000});
+		if (res.error) {
+			toast.error(res?.error?.data?.message, {id: toastId, duration: 2000});
 		} else {
 			toast.success('Logged In', {id: toastId, duration: 2000});
 			const user = verifyToken(token) as TUser;

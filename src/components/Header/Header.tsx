@@ -135,6 +135,11 @@ const Header = () => {
 									About Us
 								</NavLink>
 							</li>
+							<li className="block text-4xl sm:text-5xl md:text-[60px] xl:text-[90px] leading-[60px] md:leading-[90px] xl:leading-[130px]">
+								<NavLink onClick={() => setOpenHam(!openHam)} to={`/${user?.role}/dashboard`}>
+									Dashboard
+								</NavLink>
+							</li>
 						</ul>
 					</nav>
 				</div>
