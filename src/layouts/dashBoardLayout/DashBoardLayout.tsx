@@ -19,13 +19,16 @@ const DashBoardLayout = () => {
 			<Sidebar />
 
 			<Layout>
-				<Header>
-					<Button onClick={handleLogout}>Log Out</Button>
+				<Header style={{padding: '0 auto'}}>
+					<div className="flex justify-center items-center h-full">
+						<Button onClick={handleLogout} className="ml-auto">
+							Log Out
+						</Button>
+					</div>
 				</Header>
-				<Content style={{margin: '24px 16px 0'}}>
+				<Content>
 					<div
 						style={{
-							padding: 24,
 							minHeight: 360,
 						}}
 					>

@@ -3,6 +3,7 @@ import {useAppSelector} from '../../redux/hooks';
 import {getCurrentUser} from '../../redux/features/auth/authSlice';
 import {userPaths} from '../../routes/user.routes';
 import sidebarGenerator from '../../utils/sidebarGenerator';
+import {Link} from 'react-router-dom';
 const {Sider} = Layout;
 const userRole = {
 	ADMIN: 'admin',
@@ -43,7 +44,9 @@ const Sidebar = () => {
 					margin: '2rem 0 2rem 0',
 				}}
 			>
-				PHU
+				<Link className="hover:text-primary" to="/">
+					BIKEIST
+				</Link>
 			</div>
 			<Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sidebarItems} />
 		</Sider>

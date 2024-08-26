@@ -7,9 +7,11 @@ import {toast} from 'sonner';
 import {TResponse} from '../../../types';
 import {useSignUpMutation} from '../../../redux/features/auth/authApi';
 import useScrollTop from '../../../hooks/useScrollTop';
+import {useNavigate} from 'react-router-dom';
 
 const SignUp = () => {
 	useScrollTop();
+	const navigate = useNavigate();
 	// *sign up mutation
 	const [signUp] = useSignUpMutation();
 	const handleSignUp: SubmitHandler<FieldValues> = async (data) => {
@@ -33,6 +35,7 @@ const SignUp = () => {
 					id: toastId,
 					duration: 2000,
 				});
+				navigate('/login');
 			}
 		} catch (error) {
 			toast.error('Something went wrong');

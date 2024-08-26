@@ -10,9 +10,11 @@ import verifyToken from '../../../utils/verifyToken';
 import {setUser, TUser} from '../../../redux/features/auth/authSlice';
 import {useAppDispatch} from '../../../redux/hooks';
 import useScrollTop from '../../../hooks/useScrollTop';
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
 	useScrollTop();
+	const navigate = useNavigate();
 	// *login mutation
 	const [login] = useLoginMutation();
 	const dispatch = useAppDispatch();
@@ -28,10 +30,10 @@ const Login = () => {
 			toast.error(res?.error?.data?.message, {id: undefined, duration: 2000});
 		} else {
 			toast.success('Logged In', {id: toastId, duration: 2000});
+			const user = verifyToken(token) as TUser;
+			dispatch(setUser({user, token}));
+			navigate(`/${user.role}/dashboard`);
 		}
-		const user = verifyToken(token) as TUser;
-		dispatch(setUser({user, token}));
-		// navigate(`/${user.role}/dashboard`);
 	};
 
 	return (
