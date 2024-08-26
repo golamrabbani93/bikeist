@@ -13,6 +13,14 @@ import {toast} from 'sonner';
 
 const baseaseQuery = fetchBaseQuery({
 	baseUrl: 'http://localhost:5000/api',
+	prepareHeaders: (headers, {getState}) => {
+		const token = (getState() as RootState).auth.token;
+		if (token) {
+			headers.set('authorization', `Bearer ${token}`);
+		}
+
+		return headers;
+	},
 });
 
 const customBaseQueryWithRefressToken: BaseQueryFn<

@@ -4,9 +4,12 @@ import PHInput from '../../../components/form/PHInput';
 import PHForm from '../../../components/form/PHForm';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {toast} from 'sonner';
+import {useGetAUserQuery} from '../../../redux/features/user/user.management.api';
 
 const UserDashboard = () => {
 	const [isEditing, setIsEditing] = useState(false);
+	const {data} = useGetAUserQuery(undefined);
+	console.log('🚀🚀: UserDashboard -> data', data);
 
 	// Sample user data
 	const user = {
