@@ -105,12 +105,14 @@ const Header = () => {
 					<nav className="menu text-start">
 						<ul className="mt-10 ">
 							<li className="block text-4xl sm:text-5xl md:text-[60px] xl:text-[90px] leading-[60px] md:leading-[90px] xl:leading-[130px]">
-								<NavLink to={'/'} end>
+								<NavLink onClick={() => setOpenHam(!openHam)} to={'/'} end>
 									home
 								</NavLink>
 							</li>
 							<li className="block text-4xl sm:text-5xl md:text-[60px] xl:text-[90px] leading-[60px] md:leading-[90px] xl:leading-[130px]">
-								<NavLink to={'/about-us'}>About Us</NavLink>
+								<NavLink onClick={() => setOpenHam(!openHam)} to={'/about-us'}>
+									About Us
+								</NavLink>
 							</li>
 						</ul>
 					</nav>
