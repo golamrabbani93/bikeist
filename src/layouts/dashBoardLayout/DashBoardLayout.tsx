@@ -36,7 +36,7 @@ const DashBoardLayout = () => {
 							{/* Logout */}
 							<li
 								onClick={handleLogout}
-								className="text-white flex items-center space-x-2 cursor-pointer hover:text-primary transition"
+								className="text-white flex items-center space-x-2 cursor-pointer hover:text-primary transition font-bold"
 							>
 								<FaSignOutAlt className="text-xl" />
 								<span>Logout</span>
