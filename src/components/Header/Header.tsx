@@ -1,9 +1,9 @@
 import './Header.css';
-import {useEffect, useState} from 'react';
-
+import {useState} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {getCurrentUser, logOut} from '../../redux/features/auth/authSlice';
+import {getCurrentTheme, toggleTheme} from '../../redux/features/theme/themeSlice';
 const Header = () => {
 	// * Get Cirrent Logged in user
 	const user = useAppSelector(getCurrentUser);
@@ -11,23 +11,11 @@ const Header = () => {
 	// *menu Open
 	const [openHam, setOpenHam] = useState(false);
 	// *Theme Management
-	const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-		return localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
-	});
-
-	useEffect(() => {
-		if (theme === 'dark') {
-			document.documentElement.classList.add('dark');
-		} else {
-			document.documentElement.classList.remove('dark');
-		}
-		localStorage.setItem('theme', theme);
-	}, [theme]);
-
-	const toggleTheme = () => {
-		setTheme(theme === 'light' ? 'dark' : 'light');
+	const theme = useAppSelector(getCurrentTheme);
+	// *handle Theme
+	const handleTheme = () => {
+		dispatch(toggleTheme());
 	};
-
 	// *user Log Out
 	const handleLogOut = () => {
 		dispatch(logOut());
@@ -58,7 +46,7 @@ const Header = () => {
 							<div>
 								{/* Sun Ion */}
 								<svg
-									onClick={toggleTheme}
+									onClick={handleTheme}
 									className={`h-7 md:h-[40px] md:w-[40px] text-white mx-4 cursor-pointer ${
 										theme === 'light' && 'hidden'
 									}`}
@@ -80,7 +68,7 @@ const Header = () => {
 							<div>
 								{/* Moon Icon */}
 								<svg
-									onClick={toggleTheme}
+									onClick={handleTheme}
 									className={`h-7 md:h-[40px] md:w-[40px] text-white mx-4 cursor-pointer ${
 										theme === 'dark' && 'hidden'
 									}`}
@@ -135,11 +123,13 @@ const Header = () => {
 									About Us
 								</NavLink>
 							</li>
-							<li className="block text-4xl sm:text-5xl md:text-[60px] xl:text-[90px] leading-[60px] md:leading-[90px] xl:leading-[130px]">
-								<NavLink onClick={() => setOpenHam(!openHam)} to={`/${user?.role}/dashboard`}>
-									Dashboard
-								</NavLink>
-							</li>
+							{user?.userId && (
+								<li className="block text-4xl sm:text-5xl md:text-[60px] xl:text-[90px] leading-[60px] md:leading-[90px] xl:leading-[130px]">
+									<NavLink onClick={() => setOpenHam(!openHam)} to={`/${user?.role}/dashboard`}>
+										Dashboard
+									</NavLink>
+								</li>
+							)}
 						</ul>
 					</nav>
 				</div>

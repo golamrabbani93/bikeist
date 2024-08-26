@@ -3,18 +3,18 @@ import SingleBanner from './SingleBanner/SingleBanner';
 
 const bannerData = [
 	{
-		image: 'https://i.ibb.co/qFwzSGP/hero-1.jpg',
+		image: 'https://i.ibb.co/r3GyH9P/hero-1.jpg',
 		quote: 'Flexible Rental Options',
 		description: 'Enjoy convenient hourly, daily, and weekly rentals that fit your schedule',
 	},
 	{
-		image: 'https://i.ibb.co/0FDFRtz/hero-2.jpg',
+		image: 'https://i.ibb.co/KDPkP2P/hero-2.jpg',
 		quote: 'Affordable Rates',
 		description:
 			'Get the best value with transparent pricing and no surprise charges—rent with confidence and ease.',
 	},
 	{
-		image: 'https://i.ibb.co/6PFBsc1/hero-3.jpg',
+		image: 'https://i.ibb.co/rZ7pJB6/hero-3.jpg',
 		quote: 'Explore Anywhere, Anytime',
 		description:
 			'Discover new routes and hidden gems with our GPS-enabled bikes, available for rent 24/7.',

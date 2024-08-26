@@ -2,7 +2,7 @@ const BreadCrumb = ({title}: {title: string}) => {
 	return (
 		<div
 			className="h-[400px] bg-cover bg-center relative py-12 px-4"
-			style={{backgroundImage: "url('https://i.ibb.co/Rb2wWTq/testibg.jpg')"}}
+			style={{backgroundImage: "url('https://i.ibb.co/GWPHBrD/testibg.jpg')"}}
 		>
 			<div className="absolute inset-0 bg-black bg-opacity-70"></div>
 			<div className="flex h-full justify-center items-center">

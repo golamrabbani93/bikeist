@@ -4,10 +4,10 @@ import Home from '../pages/Home/Home';
 import About from '../pages/About/About';
 import SignUp from '../pages/Register/SignUP/SignUP';
 import Login from '../pages/Register/Login/Login';
-import DashBoardLayout from '../layouts/dashBoardLayout/dashBoardLayout';
 import routesGenerator from '../utils/routesGenerator';
 import {userPaths} from './user.routes';
 import ProtectedRoute from '../layouts/ProtectedRoute';
+import DashBoardLayout from '../layouts/dashBoardLayout/DashBoardLayout';
 
 const router = createBrowserRouter([
 	{

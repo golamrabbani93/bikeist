@@ -1,3 +1,4 @@
+import BikeLIst from '../pages/DashBoard/User/BikeManagement/BikeLIst';
 import UserDashoard from '../pages/DashBoard/User/UserDashoard';
 
 export const userPaths = [
@@ -7,12 +8,12 @@ export const userPaths = [
 		element: <UserDashoard />,
 	},
 	{
-		name: 'Academic Management',
+		name: 'Bike Management',
 		children: [
 			{
-				name: 'Craete Academic Semester',
-				path: 'create-academic-semester',
-				element: <p>hello</p>,
+				name: 'Bike List',
+				path: 'bike-list',
+				element: <BikeLIst />,
 			},
 		],
 	},

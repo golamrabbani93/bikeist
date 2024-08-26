@@ -196,7 +196,7 @@ const Footer = () => {
 						</h2>
 					</div>
 					<div className="company">
-						<img src="https://i.ibb.co/340xmC5/payment.png" alt="" />
+						<img src="https://i.ibb.co/6FTp0gT/div-col-auto.png" alt="" />
 					</div>
 				</div>
 			</div>

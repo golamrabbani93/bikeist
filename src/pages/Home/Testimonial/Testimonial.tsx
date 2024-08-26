@@ -26,7 +26,7 @@ const testimonials = [
 
 const Testimonial = () => {
 	return (
-		<div className="relative h-screen w-full bg-cover bg-center bg-[url('https://i.ibb.co/Rb2wWTq/testibg.jpg')]">
+		<div className="relative h-screen w-full bg-cover bg-center bg-[url('https://i.ibb.co/GWPHBrD/testibg.jpg')]">
 			<div className="absolute inset-0 bg-black bg-opacity-70"></div> {/* Overlay */}
 			<div className="relative h-full flex justify-center items-center">
 				<div className="w-[19rem] md:w-full text-center mx-4 md:mx-auto">

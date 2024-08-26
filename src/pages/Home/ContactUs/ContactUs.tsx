@@ -2,7 +2,7 @@ const ContactUs = () => {
 	return (
 		<div
 			className="h-full bg-cover bg-center relative py-12 px-4"
-			style={{backgroundImage: "url('https://i.ibb.co/Rb2wWTq/testibg.jpg')"}}
+			style={{backgroundImage: "url('https://i.ibb.co/GWPHBrD/testibg.jpg')"}}
 		>
 			<div className="absolute inset-0 bg-black bg-opacity-70"></div>
 			<div className="relative max-w-4xl mx-auto text-center">
