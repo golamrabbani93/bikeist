@@ -4,6 +4,10 @@ import Home from '../pages/Home/Home';
 import About from '../pages/About/About';
 import SignUp from '../pages/Register/SignUP/SignUP';
 import Login from '../pages/Register/Login/Login';
+import DashBoardLayout from '../layouts/dashBoardLayout/dashBoardLayout';
+import routesGenerator from '../utils/routesGenerator';
+import {userPaths} from './user.routes';
+import ProtectedRoute from '../layouts/ProtectedRoute';
 
 const router = createBrowserRouter([
 	{
@@ -27,6 +31,15 @@ const router = createBrowserRouter([
 				element: <Login />,
 			},
 		],
+	},
+	{
+		path: '/user',
+		element: (
+			<ProtectedRoute role="user">
+				<DashBoardLayout />
+			</ProtectedRoute>
+		),
+		children: routesGenerator(userPaths),
 	},
 ]);
 

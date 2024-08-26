@@ -33,7 +33,7 @@ const Header = () => {
 		dispatch(logOut());
 	};
 	return (
-		<div className="container relative mx-auto">
+		<div className="container relative mx-auto header">
 			<div className="absolute top-10 ">
 				<div className="container mx-auto">
 					<div className=" flex ">

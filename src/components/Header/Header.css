@@ -73,7 +73,7 @@ svg {
 		margin-bottom: 3.2rem;
 	} */
 }
-.active {
+header > .active {
 	color: #e2211c !important;
 	display: block;
 }
