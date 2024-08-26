@@ -4,19 +4,34 @@ import PHInput from '../../../components/form/PHInput';
 import PHForm from '../../../components/form/PHForm';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {toast} from 'sonner';
-import {useGetAUserQuery} from '../../../redux/features/user/user.management.api';
+import {
+	useGetAUserQuery,
+	useUpdateUserInfoMutation,
+} from '../../../redux/features/user/user.management.api';
 import SkeletonLoader from '../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {TUserData} from '../../../types/user.type';
 
 const UserDashboard = () => {
 	const [isEditing, setIsEditing] = useState(false);
+	// *Get USer Data Query
 	const {data, isLoading} = useGetAUserQuery(undefined);
 
+	// *update user Data Mutation
+	const [updateUser] = useUpdateUserInfoMutation();
 	const user = data?.data as TUserData;
+	// *form Default data
+	const defaultValues = {
+		name: user?.name,
+		email: user?.email,
+		phone: user?.phone,
+		address: user?.address,
+	};
+	//* update form Data
 	const handleProfileUpdate: SubmitHandler<FieldValues> = async (data) => {
 		console.log(data);
 		try {
-			// Perform update logic here
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			await updateUser(data);
 			toast.success('Profile updated successfully!');
 			setIsEditing(false);
 		} catch (error) {
@@ -34,7 +49,7 @@ const UserDashboard = () => {
 				</h2>
 
 				{isEditing ? (
-					<PHForm onSubmit={handleProfileUpdate}>
+					<PHForm onSubmit={handleProfileUpdate} defaultValues={defaultValues}>
 						{/* Name */}
 						<div className="flex items-center mb-6">
 							<FaUser className="text-white text-2xl mr-4" />

@@ -9,6 +9,8 @@ export type TError = {
 	status: number;
 };
 export type TResponse<T> = {
+	[x: string]: any;
+	_id: any;
 	data?: T;
 	error?: TError;
 	success: boolean;

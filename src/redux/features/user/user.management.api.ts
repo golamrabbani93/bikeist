@@ -19,6 +19,7 @@ const bikeManagementApi = baseApi.injectEndpoints({
 					params: params,
 				};
 			},
+			providesTags: ['user'],
 			transformResponse: (response: TResponseRedux<TUserData>) => {
 				console.log(response.data);
 				return {
@@ -26,7 +27,15 @@ const bikeManagementApi = baseApi.injectEndpoints({
 				};
 			},
 		}),
+		updateUserInfo: builder.mutation({
+			query: (data) => ({
+				url: '/users/me',
+				method: 'PUT',
+				body: data,
+			}),
+			invalidatesTags: ['user'],
+		}),
 	}),
 });
 
-export const {useGetAUserQuery} = bikeManagementApi;
+export const {useGetAUserQuery, useUpdateUserInfoMutation} = bikeManagementApi;
