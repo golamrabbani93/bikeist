@@ -9,30 +9,29 @@ import {useLoginMutation} from '../../../redux/features/auth/authApi';
 import verifyToken from '../../../utils/verifyToken';
 import {setUser, TUser} from '../../../redux/features/auth/authSlice';
 import {useAppDispatch} from '../../../redux/hooks';
+import useScrollTop from '../../../hooks/useScrollTop';
 
 const Login = () => {
+	useScrollTop();
 	// *login mutation
 	const [login] = useLoginMutation();
 	const dispatch = useAppDispatch();
 	const handleLogin: SubmitHandler<FieldValues> = async (data) => {
 		console.log(data);
-		try {
-			const toastId = toast.loading('Logging in...');
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const res = (await login(data)) as TResponse<any>;
 
-			const token = res.data.token;
-			if (token) {
-				toast.success('Logged In', {id: toastId, duration: 2000});
-			} else {
-				toast.error('Log In Failed', {id: toastId, duration: 2000});
-			}
-			const user = verifyToken(token) as TUser;
-			dispatch(setUser({user, token}));
-			// navigate(`/${user.role}/dashboard`);
-		} catch (error) {
-			toast.error('Something went wrong');
+		const toastId = toast.loading('Logging in...');
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const res = (await login(data)) as TResponse<any>;
+
+		const token = res?.data?.token;
+		if (res.error?.data.success) {
+			toast.error(res?.error?.data?.message, {id: undefined, duration: 2000});
+		} else {
+			toast.success('Logged In', {id: toastId, duration: 2000});
 		}
+		const user = verifyToken(token) as TUser;
+		dispatch(setUser({user, token}));
+		// navigate(`/${user.role}/dashboard`);
 	};
 
 	return (

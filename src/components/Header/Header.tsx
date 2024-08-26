@@ -2,8 +2,15 @@ import './Header.css';
 import {useEffect, useState} from 'react';
 
 import {Link, NavLink} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {getCurrentUser, logOut} from '../../redux/features/auth/authSlice';
 const Header = () => {
+	// * Get Cirrent Logged in user
+	const user = useAppSelector(getCurrentUser);
+	const dispatch = useAppDispatch();
+	// *menu Open
 	const [openHam, setOpenHam] = useState(false);
+	// *Theme Management
 	const [theme, setTheme] = useState<'light' | 'dark'>(() => {
 		return localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
 	});
@@ -20,6 +27,11 @@ const Header = () => {
 	const toggleTheme = () => {
 		setTheme(theme === 'light' ? 'dark' : 'light');
 	};
+
+	// *user Log Out
+	const handleLogOut = () => {
+		dispatch(logOut());
+	};
 	return (
 		<div className="container relative mx-auto">
 			<div className="absolute top-10 ">
@@ -30,9 +42,18 @@ const Header = () => {
 						</div>
 						<div className="ham flex z-50 items-center  bg-primary  md:h-[80px] px-4 rounded-2xl">
 							<div className="cursor-pointer ">
-								<Link className="text-white text-2xl font-extrabold" to={'/login'}>
-									LOGIN
-								</Link>
+								{user?.userId ? (
+									<button
+										className="text-white text-2xl font-extrabold uppercase"
+										onClick={handleLogOut}
+									>
+										LogOut
+									</button>
+								) : (
+									<Link className="text-white text-2xl font-extrabold" to={'/login'}>
+										LOGIN
+									</Link>
+								)}
 							</div>
 							<div>
 								{/* Sun Ion */}

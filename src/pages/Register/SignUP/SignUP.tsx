@@ -6,8 +6,10 @@ import {signUpSchema} from '../../../schemas/register/signUp.schema';
 import {toast} from 'sonner';
 import {TResponse} from '../../../types';
 import {useSignUpMutation} from '../../../redux/features/auth/authApi';
+import useScrollTop from '../../../hooks/useScrollTop';
 
 const SignUp = () => {
+	useScrollTop();
 	// *sign up mutation
 	const [signUp] = useSignUpMutation();
 	const handleSignUp: SubmitHandler<FieldValues> = async (data) => {
