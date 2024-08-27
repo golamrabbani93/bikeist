@@ -16,7 +16,7 @@ const BikeistInput = ({type, name, label, placeholder}: TInputProps) => {
 				render={({field, fieldState: {error}}) => (
 					<Form.Item label={label}>
 						<Input {...field} type={type} id={name} size="large" placeholder={placeholder} />
-						{error && <small className="text-lg text-primary">{error.message}</small>}
+						{error && <small className="text-[14px] text-primary">{error.message}</small>}
 					</Form.Item>
 				)}
 			/>

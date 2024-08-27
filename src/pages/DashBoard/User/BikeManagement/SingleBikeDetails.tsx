@@ -2,12 +2,18 @@ import {useParams} from 'react-router-dom';
 import {useGetABikeQuery} from '../../../../redux/features/bike/bike.management.api';
 import SkeletonLoader from '../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {useState} from 'react';
-import {Modal} from 'antd';
+import {ConfigProvider, Modal, theme} from 'antd';
 import {TBike} from '../../../../types';
+import BikeistForm from '../../../../components/form/BikeistForm';
+import BikeistDatePicker from '../../../../components/form/BikeistDatePicker';
+import {useAppSelector} from '../../../../redux/hooks';
+import {getCurrentTheme} from '../../../../redux/features/theme/themeSlice';
+import {FieldValues, SubmitHandler} from 'react-hook-form';
+import {bookingSchema} from '../../../../schemas/booking/booking.schema';
+import {zodResolver} from '@hookform/resolvers/zod/src/zod.js';
 
 const SingleBikeDetails = () => {
 	const {id} = useParams();
-	console.log('🚀🚀: SingleBikeDetails -> id', id);
 
 	const {data, isLoading} = useGetABikeQuery(id);
 	const bikeData = data?.data;
@@ -67,17 +73,28 @@ const SingleBikeDetails = () => {
 };
 const BookingModal = ({bikeData}: {bikeData: TBike}) => {
 	const [open, setOpen] = useState(false);
-
+	// *theme Management
+	const selectedTheme = useAppSelector(getCurrentTheme);
 	const showModal = () => {
 		setOpen(true);
 	};
 
-	const handleOk = () => {
-		setOpen(false);
+	const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+		const bookingData = {
+			startTime: data.startTime,
+			bikeId: bikeData._id,
+		};
+		console.log('🚀🚀: BookingModal -> bookingData', bookingData);
 	};
 
 	const handleCancel = () => {
 		setOpen(false);
+	};
+
+	const lightTheme = {};
+
+	const darkTheme = {
+		algorithm: theme.darkAlgorithm,
 	};
 
 	return (
@@ -88,26 +105,24 @@ const BookingModal = ({bikeData}: {bikeData: TBike}) => {
 			>
 				Book Now
 			</button>
-			<Modal
-				open={open}
-				title={`${bikeData?.name}Bike Book Now`}
-				onOk={handleOk}
-				onCancel={handleCancel}
-				footer={[
-					<button
-						className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300 w-full"
-						onClick={handleOk}
-					>
-						Pay Now
-					</button>,
-				]}
-			>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-				<p>Some contents...</p>
-			</Modal>
+			<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
+				<Modal
+					open={open}
+					title={`${bikeData?.name}Bike Book Now`}
+					onCancel={handleCancel}
+					footer={[]}
+				>
+					<div className="mt-2">
+						<BikeistForm onSubmit={handleSubmit} resolver={zodResolver(bookingSchema)}>
+							<BikeistDatePicker name="startTime" label="Select Booking Start Time" />
+							<button className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300 w-full">
+								Pay Now
+							</button>
+							,
+						</BikeistForm>
+					</div>
+				</Modal>
+			</ConfigProvider>
 		</>
 	);
 };
