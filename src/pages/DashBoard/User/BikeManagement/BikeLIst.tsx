@@ -15,7 +15,6 @@ const BikeLIst = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
 	const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-	console.log('🚀🚀: BikeLIst -> params', params);
 	const {data, isLoading, isFetching} = useGetAllBikeQuery(params);
 	const bikesData = data?.data;
 	const tableData = bikesData?.map(
@@ -60,7 +59,6 @@ const BikeLIst = () => {
 			key: 'image',
 			dataIndex: 'image',
 			render: (item) => {
-				console.log('🚀🚀: item', item);
 				return (
 					<div>
 						<img className="w-[100px] h-[100px]" src={item} alt="" />
@@ -109,39 +107,41 @@ const BikeLIst = () => {
 								className="w-[25px] text-center m-auto text-green-600"
 								data-slot="icon"
 								fill="none"
-								stroke-width="1.5"
+								strokeWidth="1.5"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
 								xmlns="http://www.w3.org/2000/svg"
 								aria-hidden="true"
 							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="m4.5 12.75 6 6 9-13.5"
-								></path>
+								<path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
 							</svg>
 						) : (
 							<svg
 								className="w-[25px] text-center m-auto text-red-600"
 								data-slot="icon"
 								fill="none"
-								stroke-width="1.5"
+								strokeWidth="1.5"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
 								xmlns="http://www.w3.org/2000/svg"
 								aria-hidden="true"
 							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M6 18 18 6M6 6l12 12"
-								></path>
+								<path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"></path>
 							</svg>
 						)}
 					</div>
 				);
 			},
+			filters: [
+				{
+					text: 'Available',
+					value: true,
+				},
+				{
+					text: 'Not Available',
+					value: false,
+				},
+			],
 		},
 
 		{
@@ -165,6 +165,7 @@ const BikeLIst = () => {
 			filters.model?.forEach((item) => queryParams.push({name: 'model', value: item}));
 			filters.brand?.forEach((item) => queryParams.push({name: 'brand', value: item}));
 			filters.year?.forEach((item) => queryParams.push({name: 'year', value: item}));
+			filters.isAvailable?.forEach((item) => queryParams.push({name: 'isAvailable', value: item}));
 
 			setParams(queryParams);
 		}
