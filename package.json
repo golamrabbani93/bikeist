@@ -13,6 +13,8 @@
     "@hookform/resolvers": "^3.9.0",
     "@lottiefiles/react-lottie-player": "^3.5.4",
     "@reduxjs/toolkit": "^2.2.7",
+    "@stripe/react-stripe-js": "^2.8.0",
+    "@stripe/stripe-js": "^4.3.0",
     "antd": "^5.20.2",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",
