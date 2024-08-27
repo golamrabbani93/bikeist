@@ -22,3 +22,11 @@ body {
 	color: #000;
 	background-color: #fff;
 }
+
+.sideNav .ant-layout {
+	background: none !important;
+}
+
+.sideNav .ant-layout-content {
+	background: #001529 !important;
+}

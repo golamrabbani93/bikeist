@@ -15,11 +15,13 @@ const BikeLIst = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
 	const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
-	const {data: bikesData, isLoading, isFetching} = useGetAllBikeQuery(params);
-
-	const tableData = bikesData?.data?.map(
-		({_id, name, brand, model, year, pricePerHour, isAvailable}) => ({
+	console.log('🚀🚀: BikeLIst -> params', params);
+	const {data, isLoading, isFetching} = useGetAllBikeQuery(params);
+	const bikesData = data?.data;
+	const tableData = bikesData?.map(
+		({_id, image, name, brand, model, year, pricePerHour, isAvailable}) => ({
 			key: _id,
+			image,
 			name,
 			brand,
 			model,
@@ -29,101 +31,117 @@ const BikeLIst = () => {
 		}),
 	);
 
+	// *Bike Name Filter Option
+	const bikeNameFilterOption = bikesData?.map((bike: TBike) => ({
+		text: bike.name,
+		value: bike.name,
+	}));
+	// *Bike Brand Filter Option
+	const bikeBrandFilterOption = bikesData?.map((bike: TBike) => ({
+		text: bike.brand,
+		value: bike.brand,
+	}));
+	// *Bike Model Filter Option
+	const bikeModelFilterOption = bikesData?.map((bike: TBike) => ({
+		text: bike.model,
+		value: bike.model,
+	}));
+	// *Bike Year Filter Option
+	const bikeYearFilterOption = Array.from(new Set(bikesData?.map((bike: TBike) => bike.year))).map(
+		(year) => ({
+			text: year,
+			value: year,
+		}),
+	);
+
 	const columns: TableColumnsType<TTableData> = [
+		{
+			title: 'Image',
+			key: 'image',
+			dataIndex: 'image',
+			render: (item) => {
+				console.log('🚀🚀: item', item);
+				return (
+					<div>
+						<img className="w-[100px] h-[100px]" src={item} alt="" />
+					</div>
+				);
+			},
+		},
 		{
 			title: 'Name',
 			key: 'name',
 			dataIndex: 'name',
-			filters: [
-				{
-					text: 'Autumn',
-					value: 'Autumn',
-				},
-				{
-					text: 'Fall',
-					value: 'Fall',
-				},
-				{
-					text: 'Summer',
-					value: 'Summer',
-				},
-			],
+			filters: bikeNameFilterOption,
 		},
 		{
 			title: 'Brand',
 			key: 'brand',
 			dataIndex: 'brand',
-			filters: [
-				{
-					text: 'Autumn',
-					value: 'Autumn',
-				},
-				{
-					text: 'Fall',
-					value: 'Fall',
-				},
-				{
-					text: 'Summer',
-					value: 'Summer',
-				},
-			],
+			filters: bikeBrandFilterOption,
 		},
 		{
 			title: 'Model',
 			key: 'model',
 			dataIndex: 'model',
-			filters: [
-				{
-					text: 'Autumn',
-					value: 'Autumn',
-				},
-				{
-					text: 'Fall',
-					value: 'Fall',
-				},
-				{
-					text: 'Summer',
-					value: 'Summer',
-				},
-			],
+			filters: bikeModelFilterOption,
 		},
 		{
 			title: 'Price Per Hour',
 			key: 'pricePerHour',
 			dataIndex: 'pricePerHour',
-			filters: [
-				{
-					text: 'Autumn',
-					value: 'Autumn',
-				},
-				{
-					text: 'Fall',
-					value: 'Fall',
-				},
-				{
-					text: 'Summer',
-					value: 'Summer',
-				},
-			],
 		},
 		{
 			title: 'Year',
 			key: 'year',
 			dataIndex: 'year',
-			filters: [
-				{
-					text: '2024',
-					value: '2024',
-				},
-				{
-					text: '2025',
-					value: '2025',
-				},
-				{
-					text: '2026',
-					value: '2026',
-				},
-			],
+			filters: bikeYearFilterOption,
+		},
+		{
+			title: 'Availability',
+			key: 'isAvailable',
+			dataIndex: 'isAvailable',
+			render: (item) => {
+				return (
+					<div>
+						{item ? (
+							<svg
+								className="w-[25px] text-center m-auto text-green-600"
+								data-slot="icon"
+								fill="none"
+								stroke-width="1.5"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="m4.5 12.75 6 6 9-13.5"
+								></path>
+							</svg>
+						) : (
+							<svg
+								className="w-[25px] text-center m-auto text-red-600"
+								data-slot="icon"
+								fill="none"
+								stroke-width="1.5"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+								aria-hidden="true"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M6 18 18 6M6 6l12 12"
+								></path>
+							</svg>
+						)}
+					</div>
+				);
+			},
 		},
 
 		{
@@ -144,7 +162,8 @@ const BikeLIst = () => {
 			const queryParams: TQueryParam[] = [];
 
 			filters.name?.forEach((item) => queryParams.push({name: 'name', value: item}));
-
+			filters.model?.forEach((item) => queryParams.push({name: 'model', value: item}));
+			filters.brand?.forEach((item) => queryParams.push({name: 'brand', value: item}));
 			filters.year?.forEach((item) => queryParams.push({name: 'year', value: item}));
 
 			setParams(queryParams);
