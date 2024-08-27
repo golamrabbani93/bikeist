@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useGetABikeQuery} from '../../../../redux/features/bike/bike.management.api';
 import SkeletonLoader from '../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {useState} from 'react';
@@ -72,19 +72,21 @@ const SingleBikeDetails = () => {
 	);
 };
 const BookingModal = ({bikeData}: {bikeData: TBike}) => {
+	console.log('🚀🚀: BookingModal -> bikeData', bikeData);
 	const [open, setOpen] = useState(false);
+	const navigate = useNavigate();
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
 	const showModal = () => {
 		setOpen(true);
 	};
-
 	const handleSubmit: SubmitHandler<FieldValues> = (data) => {
 		const bookingData = {
 			startTime: data.startTime,
-			bikeId: bikeData._id,
+			bikeData,
 		};
-		console.log('🚀🚀: BookingModal -> bookingData', bookingData);
+		// Redirect to payment page with advanced payment of Tk 100
+		navigate('/payment', {state: {amount: 100, bikeData: bookingData}});
 	};
 
 	const handleCancel = () => {

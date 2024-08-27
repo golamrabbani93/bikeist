@@ -8,6 +8,7 @@ import routesGenerator from '../utils/routesGenerator';
 import {userPaths} from './user.routes';
 import ProtectedRoute from '../layouts/ProtectedRoute';
 import DashBoardLayout from '../layouts/dashBoardLayout/DashBoardLayout';
+import PaymentLayout from '../layouts/PaymentLayout/PaymentLayout';
 
 const router = createBrowserRouter([
 	{
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
 			</ProtectedRoute>
 		),
 		children: routesGenerator(userPaths),
+	},
+	{
+		path: '/payment',
+		element: <PaymentLayout />,
 	},
 ]);
 

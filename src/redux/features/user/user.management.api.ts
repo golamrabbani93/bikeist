@@ -21,7 +21,6 @@ const bikeManagementApi = baseApi.injectEndpoints({
 			},
 			providesTags: ['user'],
 			transformResponse: (response: TResponseRedux<TUserData>) => {
-				console.log(response.data);
 				return {
 					data: response?.data,
 				};
