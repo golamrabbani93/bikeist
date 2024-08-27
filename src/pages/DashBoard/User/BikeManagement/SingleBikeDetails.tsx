@@ -72,7 +72,6 @@ const SingleBikeDetails = () => {
 	);
 };
 const BookingModal = ({bikeData}: {bikeData: TBike}) => {
-	console.log('🚀🚀: BookingModal -> bikeData', bikeData);
 	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
 	// *theme Management

@@ -1,18 +1,30 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import {useEffect, useState} from 'react';
-import {TBike} from '../../../types';
+import {TBike, TResponse} from '../../../types';
 import {useAppSelector} from '../../../redux/hooks';
 import {getCurrentUser} from '../../../redux/features/auth/authSlice';
-
-const CheckoutForm = ({amount, bikeData}: {amount: number; bikeData: TBike}) => {
+import {toast} from 'sonner';
+import {useCreateRentalMutation} from '../../../redux/features/rental/rental.management.api';
+import {FieldValues, SubmitHandler} from 'react-hook-form';
+export type TBikeData = {
+	bikeData: TBike;
+	startTime: string;
+};
+type TProps = {
+	amount: number;
+	bikeData: TBikeData;
+	setOpen: any;
+};
+const CheckoutForm: React.FC<TProps> = ({amount, bikeData, setOpen}) => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const [cardError, SetCardError] = useState('');
-	const [processing, setProcessing] = useState(false);
+
+	const [createRental] = useCreateRentalMutation();
 	// * get Payment Secret
 	const [clientSecret, setClientSecret] = useState('');
 	const user = useAppSelector(getCurrentUser);
-	console.log('🚀🚀: CheckoutForm -> user', user);
 
 	useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
@@ -25,7 +37,7 @@ const CheckoutForm = ({amount, bikeData}: {amount: number; bikeData: TBike}) => 
 			.then((data) => setClientSecret(data.clientSecret));
 	}, [amount]);
 
-	const handleSubmit = async (event) => {
+	const handleSubmit: SubmitHandler<FieldValues> = async (event) => {
 		// Block native form submission.
 		event.preventDefault();
 
@@ -54,7 +66,7 @@ const CheckoutForm = ({amount, bikeData}: {amount: number; bikeData: TBike}) => 
 			SetCardError(error.message as string);
 		} else {
 			SetCardError('');
-			setProcessing(true);
+
 			console.log('[PaymentMethod]', paymentMethod);
 		}
 		const {paymentIntent, error: confirmError} = await stripe.confirmCardPayment(clientSecret, {
@@ -70,7 +82,23 @@ const CheckoutForm = ({amount, bikeData}: {amount: number; bikeData: TBike}) => 
 		if (confirmError) {
 			console.log(confirmError);
 		} else {
-			console.log('🚀🚀: paymentIntent', paymentIntent);
+			if (paymentIntent.status === 'succeeded') {
+				const newBikeData = {
+					bikeId: bikeData?.bikeData?._id,
+					startTime: bikeData?.startTime,
+				};
+				const toastId = toast.loading('Logging in...');
+
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				const res = (await createRental(newBikeData)) as TResponse<any>;
+
+				if (res.error) {
+					toast.error(res?.error?.data?.message, {id: toastId, duration: 2000});
+				} else {
+					toast.success('Booking Successful', {id: toastId, duration: 2000});
+					setOpen(false);
+				}
+			}
 		}
 	};
 

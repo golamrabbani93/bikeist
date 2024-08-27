@@ -2,10 +2,9 @@ import {ConfigProvider, Modal, theme} from 'antd';
 import moment from 'moment';
 import {useState} from 'react';
 import {useLocation} from 'react-router-dom';
-import {TBike} from '../../../types';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import CheckoutForm from './CheckoutForm';
+import CheckoutForm, {TBikeData} from './CheckoutForm';
 
 const Payment = () => {
 	const location = useLocation();
@@ -42,19 +41,14 @@ const Payment = () => {
 						</button>
 					</div>
 				</div>
-
-				{/* Pay Button */}
-				{/* <button className="w-full py-3 bg-primary text-white rounded-lg shadow-lg hover:bg-secondary focus:ring-4 focus:ring-secondary focus:outline-none transition duration-300">
-					Pay $100
-				</button>
-                 */}
 				<PaymentModal amount={amount} bikeData={bikeData} />
 			</div>
 		</div>
 	);
 };
-const PaymentModal = ({amount, bikeData}: {amount: number; bikeData: TBike}) => {
+const PaymentModal = ({amount, bikeData}: {amount: number; bikeData: TBikeData}) => {
 	const [open, setOpen] = useState(false);
+
 	const showModal = () => {
 		setOpen(true);
 	};
@@ -82,7 +76,7 @@ const PaymentModal = ({amount, bikeData}: {amount: number; bikeData: TBike}) => 
 			<ConfigProvider theme={darkTheme}>
 				<Modal open={open} onCancel={handleCancel} footer={[]}>
 					<Elements stripe={stripePromise}>
-						<CheckoutForm amount={amount} bikeData={bikeData} />
+						<CheckoutForm amount={amount} bikeData={bikeData} setOpen={setOpen} />
 					</Elements>
 				</Modal>
 			</ConfigProvider>
