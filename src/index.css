@@ -30,3 +30,19 @@ body {
 .sideNav .ant-layout-content {
 	background: none !important;
 }
+.ant-tabs .ant-tabs-tab .ant-tabs-tab-btn {
+	color: #e2211c;
+	font-weight: 700;
+	font-size: 20px;
+}
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+	color: #e2211c;
+	font-weight: 700;
+}
+.ant-tabs .ant-tabs-ink-bar-animated {
+	background: #e2211c;
+}
+.ant-tabs .ant-tabs-tab-btn:first,
+.ant-tabs .ant-tabs-tab-btn:active {
+	color: #e2211c;
+}

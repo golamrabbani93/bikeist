@@ -1,4 +1,5 @@
 import BikeLIst from '../pages/DashBoard/User/BikeManagement/BikeLIst';
+import MyRental from '../pages/DashBoard/User/BikeManagement/MyRental';
 import SingleBikeDetails from '../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
 import UserDashoard from '../pages/DashBoard/User/UserDashoard';
 
@@ -19,6 +20,11 @@ export const userPaths = [
 			{
 				path: 'bike-list/:id',
 				element: <SingleBikeDetails />,
+			},
+			{
+				name: 'My Rental',
+				path: 'my-rental',
+				element: <MyRental />,
 			},
 		],
 	},
