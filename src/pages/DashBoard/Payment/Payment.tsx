@@ -1,11 +1,11 @@
 import {ConfigProvider, Modal, theme} from 'antd';
 import moment from 'moment';
 import {useState} from 'react';
-import {FieldValues, SubmitHandler} from 'react-hook-form';
-import {useLocation, useNavigate} from 'react-router-dom';
-import {useAppSelector} from '../../../redux/hooks';
-import {getCurrentTheme} from '../../../redux/features/theme/themeSlice';
+import {useLocation} from 'react-router-dom';
 import {TBike} from '../../../types';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import CheckoutForm from './CheckoutForm';
 
 const Payment = () => {
 	const location = useLocation();
@@ -48,32 +48,29 @@ const Payment = () => {
 					Pay $100
 				</button>
                  */}
-				<PaymentModal />
+				<PaymentModal amount={amount} bikeData={bikeData} />
 			</div>
 		</div>
 	);
 };
-const PaymentModal = ({bikeData}: {bikeData: TBike}) => {
+const PaymentModal = ({amount, bikeData}: {amount: number; bikeData: TBike}) => {
 	const [open, setOpen] = useState(false);
-
-	// *theme Management
-	const selectedTheme = useAppSelector(getCurrentTheme);
 	const showModal = () => {
 		setOpen(true);
 	};
 
+	const stripeSecretKey = import.meta.env.VITE_STRIPE_SECRET_KEY;
+
 	const handleCancel = () => {
 		setOpen(false);
 	};
-
-	const lightTheme = {};
 
 	const darkTheme = {
 		algorithm: theme.darkAlgorithm,
 	};
 
 	// * payment mathod start
-
+	const stripePromise = loadStripe(stripeSecretKey);
 	return (
 		<>
 			<button
@@ -82,14 +79,11 @@ const PaymentModal = ({bikeData}: {bikeData: TBike}) => {
 			>
 				Pay $100
 			</button>
-			<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
-				<Modal
-					open={open}
-					title={`${bikeData?.name}Bike Book Now`}
-					onCancel={handleCancel}
-					footer={[]}
-				>
-					<div className="mt-2"></div>
+			<ConfigProvider theme={darkTheme}>
+				<Modal open={open} onCancel={handleCancel} footer={[]}>
+					<Elements stripe={stripePromise}>
+						<CheckoutForm amount={amount} bikeData={bikeData} />
+					</Elements>
 				</Modal>
 			</ConfigProvider>
 		</>
