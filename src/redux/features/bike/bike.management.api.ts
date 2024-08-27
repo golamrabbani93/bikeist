@@ -25,7 +25,20 @@ const bikeManagementApi = baseApi.injectEndpoints({
 				};
 			},
 		}),
+		getABike: builder.query({
+			query: (id) => {
+				return {
+					url: `/bikes/${id}`,
+					method: 'GET',
+				};
+			},
+			transformResponse: (response: TResponseRedux<TBike>) => {
+				return {
+					data: response.data,
+				};
+			},
+		}),
 	}),
 });
 
-export const {useGetAllBikeQuery} = bikeManagementApi;
+export const {useGetAllBikeQuery, useGetABikeQuery} = bikeManagementApi;

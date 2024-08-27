@@ -5,6 +5,7 @@ import {useGetAllBikeQuery} from '../../../../redux/features/bike/bike.managemen
 import SkeletonLoader from '../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {useAppSelector} from '../../../../redux/hooks';
 import {getCurrentTheme} from '../../../../redux/features/theme/themeSlice';
+import {Link} from 'react-router-dom';
 
 export type TTableData = Pick<
 	TBike,
@@ -147,10 +148,12 @@ const BikeLIst = () => {
 		{
 			title: 'Action',
 			key: 'x',
-			render: () => {
+			render: (item) => {
 				return (
 					<div>
-						<Button>Update</Button>
+						<Button>
+							<Link to={`/user/bike-list/${item.key}`}>See Details</Link>
+						</Button>
 					</div>
 				);
 			},

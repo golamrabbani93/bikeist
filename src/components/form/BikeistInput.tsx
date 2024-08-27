@@ -8,7 +8,7 @@ type TInputProps = {
 	placeholder?: string;
 };
 
-const PHInput = ({type, name, label, placeholder}: TInputProps) => {
+const BikeistInput = ({type, name, label, placeholder}: TInputProps) => {
 	return (
 		<div style={{marginBottom: '20px'}}>
 			<Controller
@@ -24,4 +24,4 @@ const PHInput = ({type, name, label, placeholder}: TInputProps) => {
 	);
 };
 
-export default PHInput;
+export default BikeistInput;

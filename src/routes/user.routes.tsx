@@ -1,4 +1,5 @@
 import BikeLIst from '../pages/DashBoard/User/BikeManagement/BikeLIst';
+import SingleBikeDetails from '../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
 import UserDashoard from '../pages/DashBoard/User/UserDashoard';
 
 export const userPaths = [
@@ -14,6 +15,10 @@ export const userPaths = [
 				name: 'Bike List',
 				path: 'bike-list',
 				element: <BikeLIst />,
+			},
+			{
+				path: 'bike-list/:id',
+				element: <SingleBikeDetails />,
 			},
 		],
 	},

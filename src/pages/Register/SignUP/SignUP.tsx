@@ -1,5 +1,3 @@
-import PHInput from '../../../components/form/PHInput';
-import PHForm from '../../../components/form/PHForm';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signUpSchema} from '../../../schemas/register/signUp.schema';
@@ -8,6 +6,8 @@ import {TResponse} from '../../../types';
 import {useSignUpMutation} from '../../../redux/features/auth/authApi';
 import useScrollTop from '../../../hooks/useScrollTop';
 import {useNavigate} from 'react-router-dom';
+import BikeistForm from '../../../components/form/BikeistForm';
+import BikeistInput from '../../../components/form/BikeistInput';
 
 const SignUp = () => {
 	useScrollTop();
@@ -47,27 +47,32 @@ const SignUp = () => {
 				<h2 className="text-4xl font-bold mb-12 uppercase tracking-wide text-center text-white">
 					Sign Up
 				</h2>
-				<PHForm onSubmit={handleSignUp} resolver={zodResolver(signUpSchema)}>
+				<BikeistForm onSubmit={handleSignUp} resolver={zodResolver(signUpSchema)}>
 					{/* Name */}
 					<div>
-						<PHInput name={'name'} type={'text'} label="Name" placeholder="Your Name" />
+						<BikeistInput name={'name'} type={'text'} label="Name" placeholder="Your Name" />
 					</div>
 					{/* Email */}
 					<div>
-						<PHInput name={'email'} type={'email'} label="Email" placeholder="Your Email" />
+						<BikeistInput name={'email'} type={'email'} label="Email" placeholder="Your Email" />
 					</div>
 					{/* Password */}
-					<PHInput
+					<BikeistInput
 						name={'password'}
 						type={'password'}
 						label="Password"
 						placeholder="Your Password"
 					/>
 					{/* Phone */}
-					<PHInput name={'phone'} type={'text'} label="Phone" placeholder="Your Phone" />
+					<BikeistInput name={'phone'} type={'text'} label="Phone" placeholder="Your Phone" />
 					{/* Address */}
 					<div>
-						<PHInput name={'address'} type={'text'} label="Address" placeholder="Your Address" />
+						<BikeistInput
+							name={'address'}
+							type={'text'}
+							label="Address"
+							placeholder="Your Address"
+						/>
 					</div>
 
 					{/* Submit Button */}
@@ -79,7 +84,7 @@ const SignUp = () => {
 							Sign Up
 						</button>
 					</div>
-				</PHForm>
+				</BikeistForm>
 			</div>
 		</div>
 	);

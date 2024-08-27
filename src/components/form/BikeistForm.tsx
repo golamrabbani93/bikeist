@@ -13,7 +13,7 @@ type TFormProps = {
 	children: ReactNode;
 } & TFormConfig;
 
-const PHForm = ({onSubmit, children, defaultValues, resolver}: TFormProps) => {
+const BikeistForm = ({onSubmit, children, defaultValues, resolver}: TFormProps) => {
 	const formConfig: TFormConfig = {};
 
 	if (defaultValues) {
@@ -35,4 +35,4 @@ const PHForm = ({onSubmit, children, defaultValues, resolver}: TFormProps) => {
 	);
 };
 
-export default PHForm;
+export default BikeistForm;

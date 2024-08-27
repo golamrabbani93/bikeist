@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaEdit} from 'react-icons/fa';
-import PHInput from '../../../components/form/PHInput';
-import PHForm from '../../../components/form/PHForm';
+import PHInput from '../../../components/form/BikeistInput';
+import PHForm from '../../../components/form/BikeistForm';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {toast} from 'sonner';
 import {

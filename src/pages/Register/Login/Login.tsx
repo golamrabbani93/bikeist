@@ -1,5 +1,3 @@
-import PHInput from '../../../components/form/PHInput';
-import PHForm from '../../../components/form/PHForm';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {loginSchema} from '../../../schemas/register/login.schema';
@@ -11,6 +9,8 @@ import {setUser, TUser} from '../../../redux/features/auth/authSlice';
 import {useAppDispatch} from '../../../redux/hooks';
 import useScrollTop from '../../../hooks/useScrollTop';
 import {useNavigate} from 'react-router-dom';
+import BikeistForm from '../../../components/form/BikeistForm';
+import BikeistInput from '../../../components/form/BikeistInput';
 
 const Login = () => {
 	useScrollTop();
@@ -43,14 +43,14 @@ const Login = () => {
 				<h2 className="text-4xl font-bold mb-12 uppercase tracking-wide text-center text-white">
 					Login
 				</h2>
-				<PHForm onSubmit={handleLogin} resolver={zodResolver(loginSchema)}>
+				<BikeistForm onSubmit={handleLogin} resolver={zodResolver(loginSchema)}>
 					{/* Email */}
 					<div>
-						<PHInput name={'email'} type={'email'} label="Email" placeholder="Your Email" />
+						<BikeistInput name={'email'} type={'email'} label="Email" placeholder="Your Email" />
 					</div>
 					{/* Password */}
 					<div>
-						<PHInput
+						<BikeistInput
 							name={'password'}
 							type={'password'}
 							label="Password"
@@ -67,7 +67,7 @@ const Login = () => {
 							Login
 						</button>
 					</div>
-				</PHForm>
+				</BikeistForm>
 			</div>
 		</div>
 	);

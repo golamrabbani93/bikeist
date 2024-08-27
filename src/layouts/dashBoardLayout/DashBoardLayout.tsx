@@ -32,7 +32,7 @@ const DashBoardLayout = () => {
 
 				<Layout>
 					<Header style={{padding: '0 auto'}}>
-						<nav className="w-[20%] ml-auto">
+						<nav className="w-[20%]">
 							<ul className="flex justify-between items-center max-w-4xl mx-auto">
 								{/* Home */}
 								<Link
