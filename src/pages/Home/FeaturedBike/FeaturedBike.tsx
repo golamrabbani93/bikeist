@@ -4,8 +4,7 @@ import './FeaturedBike.css';
 import {TBike} from '../../../types';
 
 const FeaturedBike = () => {
-	const {data, isLoading} = useGetAllBikeQuery(undefined);
-	console.log('🚀🚀: FeaturedBike -> data', data);
+	const {data, isLoading} = useGetAllBikeQuery([{name: 'isAvailable', value: 'true'}]);
 	if (isLoading) {
 		return <h2>Loading...</h2>;
 	}
