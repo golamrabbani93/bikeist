@@ -1,11 +1,18 @@
-import {Button, ConfigProvider, Table, TableColumnsType, TableProps, theme} from 'antd';
+import {Button, ConfigProvider, Modal, Table, TableColumnsType, TableProps, theme} from 'antd';
 import {useState} from 'react';
 import {TBike, TQueryParam} from '../../../../types';
-import {useGetAllBikeQuery} from '../../../../redux/features/bike/bike.management.api';
+import {
+	useGetABikeQuery,
+	useGetAllBikeQuery,
+} from '../../../../redux/features/bike/bike.management.api';
 import SkeletonLoader from '../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {useAppSelector} from '../../../../redux/hooks';
 import {getCurrentTheme} from '../../../../redux/features/theme/themeSlice';
-import {Link} from 'react-router-dom';
+import {FaEdit} from 'react-icons/fa';
+import {MdDelete} from 'react-icons/md';
+import BikeistForm from '../../../../components/form/BikeistForm';
+import BikeistInput from '../../../../components/form/BikeistInput';
+import {FieldValues, SubmitHandler} from 'react-hook-form';
 
 export type TTableData = Pick<
 	TBike,
@@ -18,7 +25,6 @@ const BikeLIst = () => {
 	const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
 	const {data, isLoading, isFetching} = useGetAllBikeQuery(params, {pollingInterval: 15000});
 	const bikesData = data?.data;
-	console.log('🚀🚀: BikeLIst -> bikesData', bikesData);
 	const tableData = bikesData?.map(
 		({_id, image, name, brand, model, year, pricePerHour, isAvailable}) => ({
 			key: _id,
@@ -91,11 +97,12 @@ const BikeLIst = () => {
 			key: 'pricePerHour',
 			dataIndex: 'pricePerHour',
 		},
-		{
+		true && {
 			title: 'Year',
 			key: 'year',
 			dataIndex: 'year',
 			filters: bikeYearFilterOption,
+			render: () => null,
 		},
 		{
 			title: 'Availability',
@@ -152,8 +159,11 @@ const BikeLIst = () => {
 			render: (item) => {
 				return (
 					<div>
-						<Button>
-							<Link to={`/user/bike-list/${item.key}`}>See Details</Link>
+						<UpdateModal bikeData={item} />
+
+						<Button className="ml-2" danger type="primary">
+							<MdDelete />
+							Delete
 						</Button>
 					</div>
 				);
@@ -195,6 +205,80 @@ const BikeLIst = () => {
 				/>
 			</div>
 		</ConfigProvider>
+	);
+};
+
+const UpdateModal = ({bikeData}: {bikeData: TBike & {key: string}}) => {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const {data} = useGetABikeQuery(bikeData?.key);
+
+	const showModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleOk = () => {
+		setIsModalOpen(false);
+	};
+
+	const handleCancel = () => {
+		setIsModalOpen(false);
+	};
+
+	const defaultValues = {
+		name: bikeData.name,
+		image: bikeData.image,
+		model: bikeData.model,
+		brand: bikeData.brand,
+		pricePerHour: bikeData.pricePerHour,
+		description: data?.data?.description,
+	};
+
+	//* update
+	const handleUpdate: SubmitHandler<FieldValues> = (data) => {
+		console.log(data);
+	};
+
+	return (
+		<>
+			<Button type="primary" onClick={showModal}>
+				<FaEdit className="" />
+				Update
+			</Button>
+			<Modal
+				title="Update Bike Data"
+				open={isModalOpen}
+				onOk={handleOk}
+				onCancel={handleCancel}
+				footer={[]}
+			>
+				<div className="mt-6">
+					<BikeistForm onSubmit={handleUpdate} defaultValues={defaultValues}>
+						<BikeistInput label="Name" name="name" key="name" type="text" />
+						<BikeistInput label="Image" name="image" key="image" type="text" />
+						<BikeistInput label="Model" name="model" key="model" type="text" />
+						<BikeistInput label="Brand" name="brand" key="brand" type="text" />
+						<BikeistInput
+							label="Price Per Hour"
+							name="pricePerHour"
+							key="pricePerHour"
+							type="text"
+						/>
+						<BikeistInput
+							label="Description"
+							name="description"
+							key="description"
+							type="textarea"
+						/>
+						<div className="ml-auto">
+							<Button htmlType="submit" className=" w-full" type="primary" onClick={showModal}>
+								<FaEdit />
+								Update
+							</Button>
+						</div>
+					</BikeistForm>
+				</div>
+			</Modal>
+		</>
 	);
 };
 
