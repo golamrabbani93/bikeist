@@ -29,6 +29,10 @@ const MyRental = () => {
 			children: <UnPaidTabs />,
 		},
 	];
+	const handleTabChange: TabsProps['onChange'] = (key) => {
+		// Dispatch action to update the active tab in Redux store
+		dispatch(setActiveTab(key as '1' | '2')); // Adjust according to your tab keys
+	};
 
 	const lightTheme = {};
 
@@ -37,7 +41,7 @@ const MyRental = () => {
 	};
 	return (
 		<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
-			<Tabs centered activeKey={tab} items={items} addIcon />
+			<Tabs centered activeKey={tab} items={items} addIcon onChange={handleTabChange} />
 		</ConfigProvider>
 	);
 };
