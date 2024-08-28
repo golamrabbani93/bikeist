@@ -1,15 +1,21 @@
 import {ConfigProvider, Tabs, TabsProps, theme} from 'antd';
-import {useAppSelector} from '../../../../redux/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../redux/hooks';
 import {getCurrentTheme} from '../../../../redux/features/theme/themeSlice';
 import UnPaidTabs from './Tabs/UnPaidTabs';
 import PaidTabs from './Tabs/PaidTabs';
+import {getCurrentTab, setActiveTab} from '../../../../redux/features/tab/tabSlice';
+import {useEffect} from 'react';
 
 const MyRental = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
-	const onChange = (key: string) => {
-		console.log(key);
-	};
+	// const [activeTab, setActiveTab] = useState('');
+	const dispatch = useAppDispatch();
+	const tab = useAppSelector(getCurrentTab);
+
+	useEffect(() => {
+		dispatch(setActiveTab(tab));
+	}, [tab, dispatch]);
 
 	const items: TabsProps['items'] = [
 		{
@@ -31,7 +37,7 @@ const MyRental = () => {
 	};
 	return (
 		<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
-			<Tabs centered defaultActiveKey="2" items={items} onChange={onChange} addIcon />
+			<Tabs centered activeKey={tab} items={items} addIcon />
 		</ConfigProvider>
 	);
 };

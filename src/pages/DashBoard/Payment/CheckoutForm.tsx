@@ -2,39 +2,67 @@
 import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import {useEffect, useState} from 'react';
 import {TBike, TResponse} from '../../../types';
-import {useAppSelector} from '../../../redux/hooks';
+import {useAppDispatch, useAppSelector} from '../../../redux/hooks';
 import {getCurrentUser} from '../../../redux/features/auth/authSlice';
 import {toast} from 'sonner';
-import {useCreateRentalMutation} from '../../../redux/features/rental/rental.management.api';
+import {
+	useCreateRentalMutation,
+	useUpdateRentalMutation,
+} from '../../../redux/features/rental/rental.management.api';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
+import {setActiveTab} from '../../../redux/features/tab/tabSlice';
 export type TBikeData = {
 	bikeData: TBike;
 	startTime: string;
 };
 type TProps = {
 	amount: number;
-	bikeData: TBikeData;
+	bikeDetails: TBike;
 	setOpen: any;
+	startTime?: string;
+	paymentStatus?: string;
+	rentalId?: string;
 };
-const CheckoutForm: React.FC<TProps> = ({amount, bikeData, setOpen}) => {
+const CheckoutForm: React.FC<TProps> = ({
+	amount,
+	bikeDetails,
+	startTime,
+	paymentStatus,
+	setOpen,
+	rentalId,
+}) => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const [cardError, SetCardError] = useState('');
-
+	const navigate = useNavigate();
 	const [createRental] = useCreateRentalMutation();
+	const [updateRental] = useUpdateRentalMutation();
+	const dispatch = useAppDispatch();
 	// * get Payment Secret
 	const [clientSecret, setClientSecret] = useState('');
 	const user = useAppSelector(getCurrentUser);
 
 	useEffect(() => {
-		// Create PaymentIntent as soon as the page loads
-		fetch('http://localhost:5000/api/create-payment-intent', {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({price: amount}),
-		})
-			.then((res) => res.json())
-			.then((data) => setClientSecret(data.clientSecret));
+		const createPaymentIntent = async () => {
+			try {
+				const res = await fetch('http://localhost:5000/api/create-payment-intent', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify({price: amount}),
+				});
+
+				const data = await res.json();
+				console.log(data.clientSecret);
+				setClientSecret(data.clientSecret);
+			} catch (error) {
+				console.error('Error creating payment intent:', error);
+			}
+		};
+
+		if (amount) {
+			createPaymentIntent();
+		}
 	}, [amount]);
 
 	const handleSubmit: SubmitHandler<FieldValues> = async (event) => {
@@ -83,21 +111,44 @@ const CheckoutForm: React.FC<TProps> = ({amount, bikeData, setOpen}) => {
 			console.log(confirmError);
 		} else {
 			if (paymentIntent.status === 'succeeded') {
-				const newBikeData = {
-					bikeId: bikeData?.bikeData?._id,
-					startTime: bikeData?.startTime,
-					payment: amount,
-				};
-				const toastId = toast.loading('Logging in...');
+				const toastId = toast.loading('Payment Processing...');
+				if (paymentStatus === 'paid') {
+					const args = {
+						data: {
+							payment: amount,
+							paymentStatus: paymentStatus === 'paid' ? 'paid' : 'unpaid',
+						},
+						id: rentalId,
+					};
 
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const res = (await createRental(newBikeData)) as TResponse<any>;
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					const res = (await updateRental(args)) as TResponse<any>;
 
-				if (res.error) {
-					toast.error(res?.error?.data?.message, {id: toastId, duration: 2000});
+					if (res.error) {
+						toast.error(res?.error?.data?.message, {id: toastId, duration: 2000});
+					} else {
+						toast.success('Payment Successful', {id: toastId, duration: 2000});
+						dispatch(setActiveTab('1'));
+						setOpen(false);
+						navigate(`/user/my-rental`);
+					}
 				} else {
-					toast.success('Booking Successful', {id: toastId, duration: 2000});
-					setOpen(false);
+					const newBikeData = {
+						bikeId: bikeDetails._id,
+						startTime: startTime,
+						payment: amount,
+					};
+
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					const res = (await createRental(newBikeData)) as TResponse<any>;
+
+					if (res.error) {
+						toast.error(res?.error?.data?.message, {id: toastId, duration: 2000});
+					} else {
+						toast.success('Booking Successful', {id: toastId, duration: 2000});
+						setOpen(false);
+						navigate('/user/my-rental');
+					}
 				}
 			}
 		}

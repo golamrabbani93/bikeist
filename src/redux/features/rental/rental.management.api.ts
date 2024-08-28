@@ -10,6 +10,7 @@ const rentalApi = baseApi.injectEndpoints({
 				method: 'POST',
 				body: rentalInfo,
 			}),
+			invalidatesTags: ['rental'],
 		}),
 		getMyRentals: builder.query({
 			query: (args) => {
@@ -31,8 +32,17 @@ const rentalApi = baseApi.injectEndpoints({
 					data: response?.data,
 				};
 			},
+			providesTags: ['rental'],
+		}),
+		updateRental: builder.mutation({
+			query: (args) => ({
+				url: `/rentals/${args.id}`,
+				method: 'PUT',
+				body: args.data,
+			}),
+			invalidatesTags: ['rental'],
 		}),
 	}),
 });
 
-export const {useCreateRentalMutation, useGetMyRentalsQuery} = rentalApi;
+export const {useCreateRentalMutation, useGetMyRentalsQuery, useUpdateRentalMutation} = rentalApi;

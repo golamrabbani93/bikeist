@@ -1,10 +1,8 @@
-import {ConfigProvider, Modal, theme} from 'antd';
 import moment from 'moment';
-import {useState} from 'react';
+
 import {useLocation} from 'react-router-dom';
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
-import CheckoutForm, {TBikeData} from './CheckoutForm';
+
+import PaymentModal from './PaymentModal';
 
 const Payment = () => {
 	const location = useLocation();
@@ -41,46 +39,9 @@ const Payment = () => {
 						</button>
 					</div>
 				</div>
-				<PaymentModal amount={amount} bikeData={bikeData} />
+				<PaymentModal amount={amount} bikeDetails={bikeDetails} startTime={startTime} />
 			</div>
 		</div>
-	);
-};
-const PaymentModal = ({amount, bikeData}: {amount: number; bikeData: TBikeData}) => {
-	const [open, setOpen] = useState(false);
-
-	const showModal = () => {
-		setOpen(true);
-	};
-
-	const stripeSecretKey = import.meta.env.VITE_STRIPE_SECRET_KEY;
-
-	const handleCancel = () => {
-		setOpen(false);
-	};
-
-	const darkTheme = {
-		algorithm: theme.darkAlgorithm,
-	};
-
-	// * payment mathod start
-	const stripePromise = loadStripe(stripeSecretKey);
-	return (
-		<>
-			<button
-				onClick={showModal}
-				className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300 w-full"
-			>
-				Pay $100
-			</button>
-			<ConfigProvider theme={darkTheme}>
-				<Modal open={open} onCancel={handleCancel} footer={[]}>
-					<Elements stripe={stripePromise}>
-						<CheckoutForm amount={amount} bikeData={bikeData} setOpen={setOpen} />
-					</Elements>
-				</Modal>
-			</ConfigProvider>
-		</>
 	);
 };
 

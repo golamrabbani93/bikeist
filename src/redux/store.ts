@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import authReducer from './features/auth/authSlice';
 import themeReducer from './features/theme/themeSlice';
+import tabReducer from './features/tab/tabSlice';
 import {baseApi} from './api/baseApi';
 
 import {
@@ -27,6 +28,7 @@ export const store = configureStore({
 	reducer: {
 		auth: persistedAuthReducer,
 		theme: persistedThemeReducer,
+		tab: tabReducer,
 		[baseApi.reducerPath]: baseApi.reducer,
 	},
 	middleware: (getDefaultMiddlewares) =>

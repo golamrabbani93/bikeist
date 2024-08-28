@@ -1,5 +1,4 @@
 import {ConfigProvider, Table, TableColumnsType, Tag, theme} from 'antd';
-
 import SkeletonLoader from '../../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {useAppSelector} from '../../../../../redux/hooks';
 import {getCurrentTheme} from '../../../../../redux/features/theme/themeSlice';
@@ -29,7 +28,7 @@ const PaidTabs = () => {
 			name: bikeId.name,
 			totalCost,
 			returnTime,
-			startTime: moment(new Date(startTime)).format('Do MMMM YYYY, h:mm A'),
+			startTime,
 		};
 	});
 
@@ -62,6 +61,9 @@ const PaidTabs = () => {
 			title: 'Start Time',
 			key: 'startTime',
 			dataIndex: 'startTime',
+			render: (item) => {
+				return moment(new Date(item)).format('Do MMMM YYYY, h:mm A');
+			},
 		},
 		{
 			title: 'Return Time',

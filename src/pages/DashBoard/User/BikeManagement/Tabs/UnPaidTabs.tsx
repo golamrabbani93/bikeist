@@ -3,12 +3,20 @@ import {Button, ConfigProvider, Table, TableColumnsType, Tag, theme} from 'antd'
 import SkeletonLoader from '../../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {useAppSelector} from '../../../../../redux/hooks';
 import {getCurrentTheme} from '../../../../../redux/features/theme/themeSlice';
-import {Link} from 'react-router-dom';
 import {useGetMyRentalsQuery} from '../../../../../redux/features/rental/rental.management.api';
 import {TRental} from '../../../../../types/rental.type';
 import moment from 'moment';
+import PaymentModal from '../../../Payment/PaymentModal';
+import {TBike} from '../../../../../types';
 
-export type TTableData = Pick<TRental, 'startTime' | 'totalCost' | 'returnTime'>;
+export type TTableData = {
+	key: string;
+	image: string;
+	totalCost: number;
+	bike: TBike;
+	endTime: string;
+	startTime: string;
+};
 
 const BikeLIst = () => {
 	// *theme Management
@@ -26,18 +34,12 @@ const BikeLIst = () => {
 		return {
 			key: _id,
 			image: bikeId.image,
-			name: bikeId.name,
 			totalCost,
-			returnTime,
+			bike: bikeId,
+			endTime: returnTime,
 			startTime: moment(new Date(startTime)).format('Do MMMM YYYY, h:mm A'),
 		};
 	});
-
-	// *Bike Name Filter Option
-	const bikeNameFilterOption = rentalData?.map((rental: TRental) => ({
-		text: rental?.bikeId?.name,
-		value: rental?.bikeId?.name,
-	}));
 
 	const columns: TableColumnsType<TTableData> = [
 		{
@@ -54,9 +56,12 @@ const BikeLIst = () => {
 		},
 		{
 			title: 'Name',
-			key: 'name',
-			dataIndex: 'name',
-			filters: bikeNameFilterOption,
+			key: 'bike',
+			dataIndex: 'bike',
+			// filters: bikeNameFilterOption,
+			render: (item) => {
+				return <p>{item.name}</p>;
+			},
 		},
 		{
 			title: 'Start Time',
@@ -65,10 +70,20 @@ const BikeLIst = () => {
 		},
 		{
 			title: 'Return Time',
-			key: 'returnTime',
-			dataIndex: 'returnTime',
+			key: 'endTime',
+			dataIndex: 'endTime',
 			render: (item) => {
-				return <div>{item === null ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
+				return (
+					<div>
+						{item === null ? (
+							<Tag color="#55acee" className="uppercase">
+								Upcoming
+							</Tag>
+						) : (
+							moment(new Date(item)).format('Do MMMM YYYY, h:mm A')
+						)}
+					</div>
+				);
 			},
 		},
 		{
@@ -78,15 +93,20 @@ const BikeLIst = () => {
 		},
 
 		{
-			title: 'Action',
+			title: 'Make Payment',
 			key: 'x',
 			render: (item) => {
-				return (
-					<div>
-						<Button>
-							<Link to={`/user/bike-list/${item.key}`}>Pay Now</Link>
-						</Button>
-					</div>
+				console.log('🚀🚀: BikeLIst -> item', item);
+				return item?.totalCost === 0 ? (
+					<p className="text-primary font-bold">Await Return</p>
+				) : (
+					<PaymentModal
+						amount={item.totalCost}
+						bikeDetails={item?.bike}
+						paymentStatus="paid"
+						startTime={item?.startTime}
+						rentalId={item.key}
+					/>
 				);
 			},
 		},
