@@ -18,6 +18,7 @@ const BikeLIst = () => {
 	const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
 	const {data, isLoading, isFetching} = useGetAllBikeQuery(params);
 	const bikesData = data?.data;
+	console.log('🚀🚀: BikeLIst -> bikesData', bikesData);
 	const tableData = bikesData?.map(
 		({_id, image, name, brand, model, year, pricePerHour, isAvailable}) => ({
 			key: _id,
