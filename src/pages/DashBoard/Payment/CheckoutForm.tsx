@@ -86,6 +86,7 @@ const CheckoutForm: React.FC<TProps> = ({amount, bikeData, setOpen}) => {
 				const newBikeData = {
 					bikeId: bikeData?.bikeData?._id,
 					startTime: bikeData?.startTime,
+					payment: amount,
 				};
 				const toastId = toast.loading('Logging in...');
 
