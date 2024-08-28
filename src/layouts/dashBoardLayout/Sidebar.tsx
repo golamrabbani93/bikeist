@@ -5,6 +5,7 @@ import {userPaths} from '../../routes/user.routes';
 import sidebarGenerator from '../../utils/sidebarGenerator';
 import {Link} from 'react-router-dom';
 import {MenuItemType} from '../../types';
+import {adminPath} from '../../routes/admin.routes';
 const {Sider} = Layout;
 const userRole = {
 	ADMIN: 'admin',
@@ -20,7 +21,7 @@ const Sidebar = () => {
 			sidebarItems = sidebarGenerator(userPaths, userRole.USER);
 			break;
 		case userRole.ADMIN:
-			sidebarItems = sidebarGenerator(userPaths, userRole.ADMIN);
+			sidebarItems = sidebarGenerator(adminPath, userRole.ADMIN);
 			break;
 
 		default:

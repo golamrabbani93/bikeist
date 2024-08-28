@@ -1,8 +1,6 @@
 import AdminDashboard from '../pages/DashBoard/Admin/AdminDashboard';
 import BikeLIst from '../pages/DashBoard/Admin/BikeManagement/BikeList';
-
-import MyRental from '../pages/DashBoard/User/BikeManagement/MyRental';
-import SingleBikeDetails from '../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
+import CreateBike from '../pages/DashBoard/Admin/BikeManagement/CreateBike';
 
 export const adminPath = [
 	{
@@ -18,14 +16,11 @@ export const adminPath = [
 				path: 'bike-list',
 				element: <BikeLIst />,
 			},
+
 			{
-				path: 'bike-list/:id',
-				element: <SingleBikeDetails />,
-			},
-			{
-				name: 'My Rental',
-				path: 'my-rental',
-				element: <MyRental />,
+				name: 'Create Bike',
+				path: 'create-Bike',
+				element: <CreateBike />,
 			},
 		],
 	},
