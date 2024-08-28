@@ -1,9 +1,10 @@
 import {Button, ConfigProvider, Modal, Table, TableColumnsType, TableProps, theme} from 'antd';
 import {useState} from 'react';
-import {TBike, TQueryParam} from '../../../../types';
+import {TBike, TQueryParam, TResponse} from '../../../../types';
 import {
 	useGetABikeQuery,
 	useGetAllBikeQuery,
+	useUpdateBikeMutation,
 } from '../../../../redux/features/bike/bike.management.api';
 import SkeletonLoader from '../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {useAppSelector} from '../../../../redux/hooks';
@@ -13,6 +14,7 @@ import {MdDelete} from 'react-icons/md';
 import BikeistForm from '../../../../components/form/BikeistForm';
 import BikeistInput from '../../../../components/form/BikeistInput';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
+import {toast} from 'sonner';
 
 export type TTableData = Pick<
 	TBike,
@@ -102,7 +104,6 @@ const BikeLIst = () => {
 			key: 'year',
 			dataIndex: 'year',
 			filters: bikeYearFilterOption,
-			render: () => null,
 		},
 		{
 			title: 'Availability',
@@ -212,12 +213,9 @@ const UpdateModal = ({bikeData}: {bikeData: TBike & {key: string}}) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const {data} = useGetABikeQuery(bikeData?.key);
 
+	const [updateBike] = useUpdateBikeMutation();
 	const showModal = () => {
 		setIsModalOpen(true);
-	};
-
-	const handleOk = () => {
-		setIsModalOpen(false);
 	};
 
 	const handleCancel = () => {
@@ -234,8 +232,23 @@ const UpdateModal = ({bikeData}: {bikeData: TBike & {key: string}}) => {
 	};
 
 	//* update
-	const handleUpdate: SubmitHandler<FieldValues> = (data) => {
-		console.log(data);
+	const handleUpdate: SubmitHandler<FieldValues> = async (data) => {
+		const toastId = toast.loading('Bike Updating...');
+		const modNumber = Number(data?.pricePerHour);
+		const args = {
+			data: {...data, pricePerHour: modNumber},
+			id: bikeData?.key,
+		};
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const res = (await updateBike(args)) as TResponse<any>;
+
+		if (res.error) {
+			toast.error(res?.error?.data?.message, {id: toastId, duration: 2000});
+		} else {
+			toast.success('Bike Update Successful', {id: toastId, duration: 2000});
+			setIsModalOpen(false);
+		}
 	};
 
 	return (
@@ -244,13 +257,7 @@ const UpdateModal = ({bikeData}: {bikeData: TBike & {key: string}}) => {
 				<FaEdit className="" />
 				Update
 			</Button>
-			<Modal
-				title="Update Bike Data"
-				open={isModalOpen}
-				onOk={handleOk}
-				onCancel={handleCancel}
-				footer={[]}
-			>
+			<Modal title="Update Bike Data" open={isModalOpen} onCancel={handleCancel} footer={[]}>
 				<div className="mt-6">
 					<BikeistForm onSubmit={handleUpdate} defaultValues={defaultValues}>
 						<BikeistInput label="Name" name="name" key="name" type="text" />

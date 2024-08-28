@@ -39,7 +39,16 @@ const bikeManagementApi = baseApi.injectEndpoints({
 				};
 			},
 		}),
+
+		updateBike: builder.mutation({
+			query: (args) => ({
+				url: `/bikes/${args.id}`,
+				method: 'PUT',
+				body: args.data,
+			}),
+			invalidatesTags: ['rental', 'bike'],
+		}),
 	}),
 });
 
-export const {useGetAllBikeQuery, useGetABikeQuery} = bikeManagementApi;
+export const {useGetAllBikeQuery, useGetABikeQuery, useUpdateBikeMutation} = bikeManagementApi;
