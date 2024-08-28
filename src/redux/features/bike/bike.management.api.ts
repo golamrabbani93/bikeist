@@ -39,6 +39,14 @@ const bikeManagementApi = baseApi.injectEndpoints({
 				};
 			},
 		}),
+		createBike: builder.mutation({
+			query: (data) => ({
+				url: `/bikes`,
+				method: 'POST',
+				body: data,
+			}),
+			invalidatesTags: ['rental', 'bike'],
+		}),
 
 		updateBike: builder.mutation({
 			query: (args) => ({
@@ -59,5 +67,10 @@ const bikeManagementApi = baseApi.injectEndpoints({
 	}),
 });
 
-export const {useGetAllBikeQuery, useGetABikeQuery, useUpdateBikeMutation, useDeleteBikeMutation} =
-	bikeManagementApi;
+export const {
+	useGetAllBikeQuery,
+	useGetABikeQuery,
+	useCreateBikeMutation,
+	useUpdateBikeMutation,
+	useDeleteBikeMutation,
+} = bikeManagementApi;
