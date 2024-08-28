@@ -19,6 +19,9 @@ const Sidebar = () => {
 		case userRole.USER:
 			sidebarItems = sidebarGenerator(userPaths, userRole.USER);
 			break;
+		case userRole.ADMIN:
+			sidebarItems = sidebarGenerator(userPaths, userRole.ADMIN);
+			break;
 
 		default:
 			break;

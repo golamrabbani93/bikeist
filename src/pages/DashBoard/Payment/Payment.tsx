@@ -1,8 +1,7 @@
 import moment from 'moment';
-
 import {useLocation} from 'react-router-dom';
-
 import PaymentModal from './PaymentModal';
+import DiscountSpinner from '../Discount/DiscountSpinner';
 
 const Payment = () => {
 	const location = useLocation();
@@ -11,6 +10,10 @@ const Payment = () => {
 	const startTime = bikeData?.startTime;
 	const modifyDate = moment(new Date(startTime)).format(' Do MMMM YYYY, h:mm A');
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleCoupon = (e: any) => {
+		console.log(e.target.value);
+	};
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-primary to-gray-900 flex items-center justify-center p-4">
 			<div className="bg-white/10 backdrop-blur-lg shadow-xl rounded-xl p-8 w-full max-w-md my-20">
@@ -28,15 +31,20 @@ const Payment = () => {
 
 				{/* Payment Method Selection */}
 				<div className="bg-white/20 p-4 rounded-lg mb-6">
-					<h3 className="text-lg text-white mb-4">Select Payment Method</h3>
-					<div className="grid grid-cols-2 gap-4">
-						<button className="py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-							Stripe
-						</button>
-
-						<button className="py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
-							Bkash
-						</button>
+					<h3 className="text-lg text-white mb-4">Spin for Discount</h3>
+					<div className=" w-full">
+						<DiscountSpinner />
+					</div>
+				</div>
+				<div className="bg-white/20 p-4 rounded-lg mb-6">
+					<h3 className="text-lg text-white mb-4">Coupon Code</h3>
+					<div className="w-full">
+						<input
+							onChange={(e) => handleCoupon(e)}
+							type="text"
+							className="w-full  h-[50px] border rounded-l border-white outline-none px-4 text-white bg-transparent focus:border-primary transition-all duration-500"
+							placeholder="Coupon Code"
+						/>
 					</div>
 				</div>
 				<PaymentModal amount={amount} bikeDetails={bikeDetails} startTime={startTime} />
