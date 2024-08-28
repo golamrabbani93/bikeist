@@ -30,7 +30,6 @@ const CreateBike = () => {
 			year,
 			cc,
 		};
-		console.log('🚀🚀: CreateBike -> newData', newData);
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const res = (await createBike(newData)) as TResponse<any>;
