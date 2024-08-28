@@ -48,7 +48,16 @@ const bikeManagementApi = baseApi.injectEndpoints({
 			}),
 			invalidatesTags: ['rental', 'bike'],
 		}),
+		deleteBike: builder.mutation({
+			query: (id) => ({
+				url: `/bikes/${id}`,
+				method: 'DELETE',
+			}),
+			// Optionally, invalidate tags or update the cache
+			invalidatesTags: ['rental', 'bike'],
+		}),
 	}),
 });
 
-export const {useGetAllBikeQuery, useGetABikeQuery, useUpdateBikeMutation} = bikeManagementApi;
+export const {useGetAllBikeQuery, useGetABikeQuery, useUpdateBikeMutation, useDeleteBikeMutation} =
+	bikeManagementApi;

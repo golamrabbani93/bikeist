@@ -2,6 +2,7 @@ import {Button, ConfigProvider, Modal, Table, TableColumnsType, TableProps, them
 import {useState} from 'react';
 import {TBike, TQueryParam, TResponse} from '../../../../types';
 import {
+	useDeleteBikeMutation,
 	useGetABikeQuery,
 	useGetAllBikeQuery,
 	useUpdateBikeMutation,
@@ -159,13 +160,10 @@ const BikeLIst = () => {
 			key: 'x',
 			render: (item) => {
 				return (
-					<div>
+					<div className="flex">
 						<UpdateModal bikeData={item} />
 
-						<Button className="ml-2" danger type="primary">
-							<MdDelete />
-							Delete
-						</Button>
+						<DeleteBike bikeData={item} />
 					</div>
 				);
 			},
@@ -206,6 +204,59 @@ const BikeLIst = () => {
 				/>
 			</div>
 		</ConfigProvider>
+	);
+};
+const DeleteBike = ({bikeData}: {bikeData: TBike & {key: string}}) => {
+	const [open, setOpen] = useState(false);
+	const [deleteBike] = useDeleteBikeMutation();
+	const showModal = () => {
+		setOpen(true);
+	};
+
+	const handleOk = async () => {
+		const toastId = toast.loading('Bike Deleting...');
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const res = (await deleteBike(bikeData?.key)) as TResponse<any>;
+
+		if (res.error) {
+			toast.error(res?.error?.data?.message, {id: toastId, duration: 2000});
+		} else {
+			toast.success('Bike Deleted Successful', {id: toastId, duration: 2000});
+			setOpen(false);
+		}
+	};
+
+	const handleCancel = () => {
+		setOpen(false);
+	};
+
+	return (
+		<div>
+			<Button onClick={showModal} className="ml-2" danger type="primary">
+				<MdDelete />
+				Delete
+			</Button>
+			<Modal
+				open={open}
+				// title={`Delete ${bikeData?.name}`}
+				onOk={handleOk}
+				onCancel={handleCancel}
+				footer={[
+					<Button key={'1'} onClick={handleCancel}>
+						No
+					</Button>,
+
+					<Button key={'2'} onClick={handleOk} className="ml-2" danger type="primary">
+						<MdDelete />
+						Delete
+					</Button>,
+				]}
+			>
+				<h2 className="text-3xl font-semibold mb-2 text-red-600">{`Delete ${bikeData?.name}`}</h2>
+				<p className="text-xl mt-2">Are You Sure To delete This Bike</p>
+			</Modal>
+		</div>
 	);
 };
 
