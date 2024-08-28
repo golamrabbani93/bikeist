@@ -6,17 +6,22 @@ import {getCurrentTheme} from '../../../../../redux/features/theme/themeSlice';
 import {useGetMyRentalsQuery} from '../../../../../redux/features/rental/rental.management.api';
 import {TRental} from '../../../../../types/rental.type';
 import moment from 'moment';
+import {getCurrentUser} from '../../../../../redux/features/auth/authSlice';
 
 export type TTableData = Pick<TRental, 'startTime' | 'totalCost' | 'returnTime'>;
 
 const PaidTabs = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
-
+	const user = useAppSelector(getCurrentUser);
 	const {data, isLoading, isFetching} = useGetMyRentalsQuery([
 		{
 			name: 'paymentStatus',
 			value: 'paid',
+		},
+		{
+			name: 'userId',
+			value: user?.userId,
 		},
 	]);
 	const rentalData = data?.data as TRental[];
@@ -31,12 +36,6 @@ const PaidTabs = () => {
 			startTime,
 		};
 	});
-
-	// *Bike Name Filter Option
-	const bikeNameFilterOption = rentalData?.map((rental: TRental) => ({
-		text: rental?.bikeId?.name,
-		value: rental?.bikeId?.name,
-	}));
 
 	const columns: TableColumnsType<TTableData> = [
 		{
@@ -55,7 +54,6 @@ const PaidTabs = () => {
 			title: 'Name',
 			key: 'name',
 			dataIndex: 'name',
-			filters: bikeNameFilterOption,
 		},
 		{
 			title: 'Start Time',
