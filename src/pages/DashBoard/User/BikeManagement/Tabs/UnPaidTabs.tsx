@@ -1,4 +1,4 @@
-import {Button, ConfigProvider, Table, TableColumnsType, Tag, theme} from 'antd';
+import {ConfigProvider, Table, TableColumnsType, Tag, theme} from 'antd';
 
 import SkeletonLoader from '../../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import {useAppSelector} from '../../../../../redux/hooks';
@@ -8,6 +8,7 @@ import {TRental} from '../../../../../types/rental.type';
 import moment from 'moment';
 import PaymentModal from '../../../Payment/PaymentModal';
 import {TBike} from '../../../../../types';
+import {getCurrentUser} from '../../../../../redux/features/auth/authSlice';
 
 export type TTableData = {
 	key: string;
@@ -21,11 +22,15 @@ export type TTableData = {
 const BikeLIst = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
-
+	const user = useAppSelector(getCurrentUser);
 	const {data, isLoading, isFetching} = useGetMyRentalsQuery([
 		{
 			name: 'paymentStatus',
 			value: 'unpaid',
+		},
+		{
+			name: 'userId',
+			value: user?.userId,
 		},
 	]);
 	const rentalData = data?.data as TRental[];

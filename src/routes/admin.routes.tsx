@@ -1,5 +1,6 @@
 import AdminDashboard from '../pages/DashBoard/Admin/AdminDashboard';
-import BikeLIst from '../pages/DashBoard/User/BikeManagement/BikeLIst';
+import BikeLIst from '../pages/DashBoard/Admin/BikeManagement/BikeList';
+
 import MyRental from '../pages/DashBoard/User/BikeManagement/MyRental';
 import SingleBikeDetails from '../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
 

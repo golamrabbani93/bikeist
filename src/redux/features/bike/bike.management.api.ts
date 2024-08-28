@@ -19,6 +19,7 @@ const bikeManagementApi = baseApi.injectEndpoints({
 					params: params,
 				};
 			},
+			providesTags: ['bike'],
 			transformResponse: (response: TResponseRedux<TBike[]>) => {
 				return {
 					data: response.data,
