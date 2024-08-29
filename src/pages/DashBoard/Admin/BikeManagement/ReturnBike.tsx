@@ -1,36 +1,34 @@
-import {ConfigProvider, Table, TableColumnsType, Tag, theme} from 'antd';
-import SkeletonLoader from '../../../../../components/Loader/SkeletonLoader/SkeletonLoader';
-import {useAppSelector} from '../../../../../redux/hooks';
-import {getCurrentTheme} from '../../../../../redux/features/theme/themeSlice';
-
-import {useGetMyRentalsQuery} from '../../../../../redux/features/rental/rental.management.api';
-import {TRental} from '../../../../../types/rental.type';
+import {Button, ConfigProvider, Table, TableColumnsType, Tag, theme} from 'antd';
+import {TRental} from '../../../../types/rental.type';
+import {useGetMyRentalsQuery} from '../../../../redux/features/rental/rental.management.api';
+import {useAppSelector} from '../../../../redux/hooks';
+import {getCurrentTheme} from '../../../../redux/features/theme/themeSlice';
+import SkeletonLoader from '../../../../components/Loader/SkeletonLoader/SkeletonLoader';
 import moment from 'moment';
-import {getCurrentUser} from '../../../../../redux/features/auth/authSlice';
+import {FieldValues, SubmitHandler} from 'react-hook-form';
 
 export type TTableData = Pick<TRental, 'startTime' | 'totalCost' | 'returnTime'>;
 
 const PaidTabs = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
-	const user = useAppSelector(getCurrentUser);
+
 	const {data, isLoading, isFetching} = useGetMyRentalsQuery([
 		{
 			name: 'paymentStatus',
-			value: 'paid',
-		},
-		{
-			name: 'userId',
-			value: user?.userId,
+			value: 'unpaid',
 		},
 	]);
 	const rentalData = data?.data as TRental[];
 	const tableData = rentalData?.map((rental: TRental) => {
-		const {_id, bikeId, totalCost, startTime, returnTime} = rental;
+		const {_id, bikeId, totalCost, startTime, returnTime, userId} = rental;
 		return {
 			key: _id,
 			image: bikeId.image,
-			name: bikeId.name,
+			bikeName: bikeId.name,
+			userName: userId.name,
+			userEmail: userId.email,
+			userPhone: userId.phone,
 			totalCost,
 			returnTime,
 			startTime,
@@ -51,10 +49,16 @@ const PaidTabs = () => {
 			},
 		},
 		{
-			title: 'Name',
-			key: 'name',
-			dataIndex: 'name',
+			title: 'Bike Name',
+			key: 'bikeName',
+			dataIndex: 'bikeName',
 		},
+		{
+			title: 'User Name',
+			key: 'userName',
+			dataIndex: 'userName',
+		},
+
 		{
 			title: 'Start Time',
 			key: 'startTime',
@@ -72,9 +76,37 @@ const PaidTabs = () => {
 			},
 		},
 		{
+			title: 'Advance',
+			key: 'returnTime',
+			dataIndex: 'returnTime',
+			render: (item) => {
+				return <div>{item === null ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
+			},
+		},
+		{
+			title: 'Discount',
+			key: 'returnTime',
+			dataIndex: 'returnTime',
+			render: (item) => {
+				return <div>{item === null ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
+			},
+		},
+
+		{
 			title: 'Total Cost',
 			key: 'totalCost',
 			dataIndex: 'totalCost',
+		},
+		{
+			title: 'Action',
+			key: 'x',
+			render: (item) => {
+				return (
+					<Button onClick={() => handleCalculate(item)} type="primary">
+						Calculate
+					</Button>
+				);
+			},
 		},
 	];
 
@@ -82,6 +114,10 @@ const PaidTabs = () => {
 
 	const darkTheme = {
 		algorithm: theme.darkAlgorithm,
+	};
+
+	const handleCalculate: SubmitHandler<FieldValues> = (item) => {
+		console.log(item);
 	};
 
 	if (isLoading) {

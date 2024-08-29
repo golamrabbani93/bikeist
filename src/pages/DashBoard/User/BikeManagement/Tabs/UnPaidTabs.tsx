@@ -85,7 +85,7 @@ const BikeLIst = () => {
 								Upcoming
 							</Tag>
 						) : (
-							moment(new Date(item)).format('Do MMMM YYYY, h:mm A')
+							moment(new Date(item)).format('Do MMM YY, h:mm A')
 						)}
 					</div>
 				);
