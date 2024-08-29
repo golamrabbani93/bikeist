@@ -101,7 +101,6 @@ const BikeLIst = () => {
 			title: 'Make Payment',
 			key: 'x',
 			render: (item) => {
-				console.log('🚀🚀: BikeLIst -> item', item);
 				return item?.totalCost === 0 ? (
 					<p className="text-primary font-bold">Await Return</p>
 				) : (

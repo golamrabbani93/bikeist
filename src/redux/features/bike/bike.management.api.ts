@@ -1,5 +1,5 @@
 import {TBike} from '../../../types';
-import {TQueryParam, TResponseRedux} from '../../../types/global';
+import {TQueryParam, TResponseRedux, TResponseReduxM} from '../../../types/global';
 import {baseApi} from '../../api/baseApi';
 
 const bikeManagementApi = baseApi.injectEndpoints({
@@ -20,9 +20,13 @@ const bikeManagementApi = baseApi.injectEndpoints({
 				};
 			},
 			providesTags: ['bike'],
-			transformResponse: (response: TResponseRedux<TBike[]>) => {
+			transformResponse: (response: TResponseReduxM<TBike[]>) => {
+				const data = response?.data?.data || [];
+				const meta = response?.data?.meta || null;
+
 				return {
-					data: response.data,
+					data,
+					meta,
 				};
 			},
 		}),
