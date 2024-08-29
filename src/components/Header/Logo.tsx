@@ -2,10 +2,10 @@ const Logo = () => {
 	return (
 		<div className="flex items-center justify-center space-x-3">
 			{/* Circle Badge */}
-			<div className="relative w-16 h-16 rounded-full bg-gradient-to-r from-[#e2211c] to-[#f77a54] flex items-center justify-center shadow-lg">
+			<div className="relative w-16 h-16 rounded-full bg-gradient-to-r bg-white flex items-center justify-center shadow-lg">
 				{/* Optional Icon */}
 				<svg
-					className="w-8 h-8 text-white absolute"
+					className="w-8 h-8 text-primary absolute"
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -25,9 +25,7 @@ const Logo = () => {
 
 			{/* Text */}
 			<div className="text-3xl font-extrabold text-gray-900 dark:text-white">
-				<span className="bg-clip-text text-transparent bg-gradient-to-r from-[#e2211c] to-[#f77a54]">
-					BikeIST
-				</span>
+				<span className="bg-clip-text text-transparent bg-gradient-to-r text-white">BikeIST</span>
 			</div>
 		</div>
 	);

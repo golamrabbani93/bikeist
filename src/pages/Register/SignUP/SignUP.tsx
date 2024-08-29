@@ -5,7 +5,7 @@ import {toast} from 'sonner';
 import {TResponse} from '../../../types';
 import {useSignUpMutation} from '../../../redux/features/auth/authApi';
 import useScrollTop from '../../../hooks/useScrollTop';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import BikeistForm from '../../../components/form/BikeistForm';
 import BikeistInput from '../../../components/form/BikeistInput';
 
@@ -85,6 +85,14 @@ const SignUp = () => {
 						</button>
 					</div>
 				</BikeistForm>
+				<div className="mt-2">
+					<h2>
+						Already Have An Acount?{' '}
+						<Link to={'/login'} className="text-white underline ml-2 ">
+							Login
+						</Link>
+					</h2>
+				</div>
 			</div>
 		</div>
 	);

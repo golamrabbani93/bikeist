@@ -8,7 +8,7 @@ import verifyToken from '../../../utils/verifyToken';
 import {setUser, TUser} from '../../../redux/features/auth/authSlice';
 import {useAppDispatch} from '../../../redux/hooks';
 import useScrollTop from '../../../hooks/useScrollTop';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import BikeistForm from '../../../components/form/BikeistForm';
 import BikeistInput from '../../../components/form/BikeistInput';
 
@@ -24,7 +24,6 @@ const Login = () => {
 		const toastId = toast.loading('Logging in...');
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const res = (await login(data)) as TResponse<any>;
-		console.log('🚀🚀: Login -> res', res);
 
 		const token = res?.data?.token;
 		if (res.error) {
@@ -68,6 +67,14 @@ const Login = () => {
 						</button>
 					</div>
 				</BikeistForm>
+				<div className="mt-2">
+					<h2>
+						New To Bikeist?{' '}
+						<Link to={'/sign-up'} className="text-white underline ml-2 ">
+							Create new account
+						</Link>
+					</h2>
+				</div>
 			</div>
 		</div>
 	);

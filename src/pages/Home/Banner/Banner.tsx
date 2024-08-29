@@ -84,7 +84,7 @@ const Banner = () => {
 												alt={bike.name}
 												className="w-[80px] h-[80px] object-cover rounded-md"
 											/>
-											<h2 className="text-xl font-semibold ">{bike.name}</h2>
+											<h2 className="text-xl font-semibold 	">{bike.name}</h2>
 											<Link to={`bikes/${bike._id}`}>
 												<button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
 													View Details

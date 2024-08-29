@@ -2,11 +2,13 @@ import {Link} from 'react-router-dom';
 import {useGetAllBikeQuery} from '../../../redux/features/bike/bike.management.api';
 import './FeaturedBike.css';
 import {TBike} from '../../../types';
+import MainLoader from '../../../components/Loader/MainLoader/MainLoader';
 
 const FeaturedBike = () => {
 	const {data, isLoading} = useGetAllBikeQuery([{name: 'isAvailable', value: 'true'}]);
+
 	if (isLoading) {
-		return <h2>Loading...</h2>;
+		return <MainLoader />;
 	}
 	return (
 		<div className="pt-16 bg-gradient-to-r from-secondary via-primary to-secondary text-white">
