@@ -106,8 +106,6 @@ application.
 - **Dashboard**: Manage your rentals.
 - **Spin the Wheel**: Gamified feature to win discounts.
 - **Profile Page**: Manage personal information.
-- **Checkout**: Proceed to the checkout page to complete your purchase. Fill in the required
-  information and confirm your order.
-
-  -**Admin Features**: Admin users can access the product management page to add, update, and delete
-  products. Navigate to the admin panel and use the provided forms to manage the products.
+- **Checkout**: Proceed to the checkout page to complete your purchase. -**Admin Features**: Admin
+  users can access the product management page to add, update, and delete products. Navigate to the
+  admin panel and use the provided forms to manage the products.
