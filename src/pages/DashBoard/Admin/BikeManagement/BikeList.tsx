@@ -27,7 +27,6 @@ const BikeLIst = () => {
 	const selectedTheme = useAppSelector(getCurrentTheme);
 	const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
 	const {data, isLoading, isFetching} = useGetAllBikeQuery(params, {pollingInterval: 15000});
-	console.log('🚀🚀: BikeLIst -> data', data);
 
 	const bikesData = data?.data;
 	const tableData = bikesData?.map(

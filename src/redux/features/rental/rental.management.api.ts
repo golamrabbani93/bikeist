@@ -42,7 +42,21 @@ const rentalApi = baseApi.injectEndpoints({
 			}),
 			invalidatesTags: ['rental', 'bike'],
 		}),
+		returnBike: builder.mutation({
+			query: (id) => {
+				return {
+					url: `/rentals/${id}/return`,
+					method: 'PUT',
+				};
+			},
+			invalidatesTags: ['rental', 'bike'],
+		}),
 	}),
 });
 
-export const {useCreateRentalMutation, useGetMyRentalsQuery, useUpdateRentalMutation} = rentalApi;
+export const {
+	useCreateRentalMutation,
+	useGetMyRentalsQuery,
+	useUpdateRentalMutation,
+	useReturnBikeMutation,
+} = rentalApi;

@@ -23,19 +23,23 @@ const BikeLIst = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
 	const user = useAppSelector(getCurrentUser);
-	const {data, isLoading, isFetching} = useGetMyRentalsQuery([
-		{
-			name: 'paymentStatus',
-			value: 'unpaid',
-		},
-		{
-			name: 'userId',
-			value: user?.userId,
-		},
-	]);
+	const {data, isLoading, isFetching} = useGetMyRentalsQuery(
+		[
+			{
+				name: 'paymentStatus',
+				value: 'unpaid',
+			},
+			{
+				name: 'userId',
+				value: user?.userId,
+			},
+		],
+		{pollingInterval: 15000},
+	);
+	console.log('🚀🚀: BikeLIst -> data', data);
 	const rentalData = data?.data as TRental[];
 	const tableData = rentalData?.map((rental: TRental) => {
-		const {_id, bikeId, totalCost, startTime, returnTime} = rental;
+		const {_id, bikeId, totalCost, startTime, returnTime, advance, discount, payment} = rental;
 		return {
 			key: _id,
 			image: bikeId.image,
@@ -43,6 +47,9 @@ const BikeLIst = () => {
 			bike: bikeId,
 			endTime: returnTime,
 			startTime: moment(new Date(startTime)).format('Do MMMM YYYY, h:mm A'),
+			advance,
+			discount,
+			payment,
 		};
 	});
 
@@ -92,20 +99,52 @@ const BikeLIst = () => {
 			},
 		},
 		{
+			title: 'advance',
+			key: 'advance',
+			dataIndex: 'advance',
+		},
+		{
+			title: 'Discount',
+			key: 'discount',
+			dataIndex: 'discount',
+			render: (item) => {
+				return <div>{item === 0 ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
+			},
+		},
+		{
+			title: 'Total Payment',
+			key: 'payment',
+			dataIndex: 'payment',
+			render: (item) => {
+				return <div>{item === 0 ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
+			},
+		},
+
+		{
 			title: 'Total Cost',
 			key: 'totalCost',
 			dataIndex: 'totalCost',
+			render: (item) => {
+				return <div>{item === 0 ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
+			},
 		},
 
 		{
 			title: 'Make Payment',
 			key: 'x',
 			render: (item) => {
+				const {totalCost, advance, discount} = item;
+				const remainingAmount = totalCost - advance;
+				const discountPercentage = remainingAmount * (discount / 100);
+				// const finalAmountDue = remainingAmount - discountPercentage;
+				const fixed = Number(remainingAmount - discountPercentage).toFixed(2);
+				const amount = Number(fixed);
+
 				return item?.totalCost === 0 ? (
 					<p className="text-primary font-bold">Await Return</p>
 				) : (
 					<PaymentModal
-						amount={item.totalCost}
+						amount={totalCost > 0 ? amount : 0}
 						bikeDetails={item?.bike}
 						paymentStatus="paid"
 						startTime={item?.startTime}

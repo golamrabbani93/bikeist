@@ -9,6 +9,8 @@ export interface TRental {
 	returnTime: string;
 	totalCost: number;
 	paymentStatus: string;
+	advance: number;
+	discount: number;
 	payment: number;
 	isReturned: boolean;
 }

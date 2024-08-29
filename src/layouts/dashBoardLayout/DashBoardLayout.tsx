@@ -1,4 +1,4 @@
-import {Layout} from 'antd';
+import {ConfigProvider, Layout, theme} from 'antd';
 import {Link, Outlet} from 'react-router-dom';
 import {FaHome, FaSignOutAlt} from 'react-icons/fa';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
@@ -12,7 +12,7 @@ const {Header, Content, Footer} = Layout;
 const DashBoardLayout = () => {
 	useScrollTop();
 	// *theme Management
-	const theme = useAppSelector(getCurrentTheme);
+	const selectedTheme = useAppSelector(getCurrentTheme);
 
 	const dispatch = useAppDispatch();
 
@@ -25,8 +25,14 @@ const DashBoardLayout = () => {
 	const handleTheme = () => {
 		dispatch(toggleTheme());
 	};
+	const lightTheme = {};
+
+	const darkTheme = {
+		algorithm: theme.darkAlgorithm,
+	};
 	return (
-		<div className="sideNav " style={{background: 'rgba(0,0,0,0.0)'}}>
+		// <div className="sideNav " style={{background: 'rgba(0,0,0,0.0)'}}>
+		<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
 			<Layout style={{height: '100%'}}>
 				<Sidebar />
 
@@ -47,7 +53,7 @@ const DashBoardLayout = () => {
 									<svg
 										onClick={handleTheme}
 										className={`h-7 md:h-[25px] md:w-[40px] text-white mx-4 cursor-pointer ${
-											theme === 'light' && 'hidden'
+											selectedTheme === 'light' && 'hidden'
 										}`}
 										data-slot="icon"
 										fill="none"
@@ -69,7 +75,7 @@ const DashBoardLayout = () => {
 									<svg
 										onClick={handleTheme}
 										className={`h-7 md:h-[25px] md:w-[40px] text-white mx-4 cursor-pointer ${
-											theme === 'dark' && 'hidden'
+											selectedTheme === 'dark' && 'hidden'
 										}`}
 										data-slot="icon"
 										fill="none"
@@ -116,7 +122,8 @@ const DashBoardLayout = () => {
 					</Footer>
 				</Layout>
 			</Layout>
-		</div>
+		</ConfigProvider>
+		// </div>
 	);
 };
 

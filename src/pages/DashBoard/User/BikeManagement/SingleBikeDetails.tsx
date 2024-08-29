@@ -101,6 +101,7 @@ const BookingModal = ({bikeData}: {bikeData: TBike}) => {
 	return (
 		<>
 			<button
+				disabled={!bikeData.isAvailable}
 				onClick={showModal}
 				className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300"
 			>
@@ -119,7 +120,6 @@ const BookingModal = ({bikeData}: {bikeData: TBike}) => {
 							<button className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300 w-full">
 								Pay Now
 							</button>
-							,
 						</BikeistForm>
 					</div>
 				</Modal>

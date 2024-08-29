@@ -24,12 +24,9 @@ const Payment = () => {
 			return;
 		}
 
-		console.log(discountCode);
-
 		// Slice the last two digits only if discountCode is defined and has a sufficient length
 		const lastTwoDigits = parseInt(discountCode.slice(-2), 10);
 
-		// Update the discount state with the extracted number
 		setDiscount(lastTwoDigits);
 	};
 	return (

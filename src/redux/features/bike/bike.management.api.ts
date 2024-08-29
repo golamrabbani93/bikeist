@@ -19,7 +19,7 @@ const bikeManagementApi = baseApi.injectEndpoints({
 					params: params,
 				};
 			},
-			providesTags: ['bike'],
+			providesTags: ['bike', 'rental'],
 			transformResponse: (response: TResponseReduxM<TBike[]>) => {
 				const data = response?.data?.data || [];
 				const meta = response?.data?.meta || null;
@@ -42,6 +42,7 @@ const bikeManagementApi = baseApi.injectEndpoints({
 					data: response.data,
 				};
 			},
+			providesTags: ['rental', 'bike'],
 		}),
 		createBike: builder.mutation({
 			query: (data) => ({

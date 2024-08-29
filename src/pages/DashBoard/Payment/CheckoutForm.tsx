@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import {useEffect, useState} from 'react';
@@ -34,7 +35,6 @@ const CheckoutForm: React.FC<TProps> = ({
 	rentalId,
 	discount,
 }) => {
-	console.log('🚀🚀: discount', discount);
 	const stripe = useStripe();
 	const elements = useElements();
 	const [cardError, SetCardError] = useState('');
@@ -56,7 +56,6 @@ const CheckoutForm: React.FC<TProps> = ({
 				});
 
 				const data = await res.json();
-				console.log(data.clientSecret);
 				setClientSecret(data.clientSecret);
 			} catch (error) {
 				console.error('Error creating payment intent:', error);
@@ -88,7 +87,7 @@ const CheckoutForm: React.FC<TProps> = ({
 		}
 
 		// Use your card Element with other Stripe.js APIs
-		const {error, paymentMethod} = await stripe.createPaymentMethod({
+		const {error} = await stripe.createPaymentMethod({
 			type: 'card',
 			card,
 		});
@@ -97,8 +96,6 @@ const CheckoutForm: React.FC<TProps> = ({
 			SetCardError(error.message as string);
 		} else {
 			SetCardError('');
-
-			console.log('[PaymentMethod]', paymentMethod);
 		}
 		const {paymentIntent, error: confirmError} = await stripe.confirmCardPayment(clientSecret, {
 			payment_method: {

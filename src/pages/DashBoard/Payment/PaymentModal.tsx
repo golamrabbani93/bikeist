@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import CheckoutForm from './CheckoutForm';
-import {ConfigProvider, Modal, theme} from 'antd';
+import {Button, ConfigProvider, Modal, theme} from 'antd';
 import {loadStripe} from '@stripe/stripe-js';
 import {Elements} from '@stripe/react-stripe-js';
 import {TBike} from '../../../types';
@@ -40,12 +40,9 @@ const PaymentModal = ({
 	const stripePromise = loadStripe(stripeSecretKey);
 	return (
 		<>
-			<button
-				onClick={showModal}
-				className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300 w-full"
-			>
-				Pay $100
-			</button>
+			<Button type="primary" onClick={showModal}>
+				Pay ${amount}
+			</Button>
 			<ConfigProvider theme={darkTheme}>
 				<Modal open={open} onCancel={handleCancel} footer={[]}>
 					<Elements stripe={stripePromise}>
