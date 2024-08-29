@@ -4,6 +4,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {getCurrentUser, logOut} from '../../redux/features/auth/authSlice';
 import {getCurrentTheme, toggleTheme} from '../../redux/features/theme/themeSlice';
+import Logo from './Logo';
 const Header = () => {
 	// * Get Cirrent Logged in user
 	const user = useAppSelector(getCurrentUser);
@@ -24,11 +25,11 @@ const Header = () => {
 		<div className="container relative mx-auto header">
 			<div className="absolute top-10 ">
 				<div className="container mx-auto">
-					<div className=" flex ">
-						<div className="flex items-center ml-10 z-10">
-							<div>{/* <img src={'https://i.ibb.co/McvXSTK/logo.png'} alt="" /> */}</div>
+					<div className="flex flex-col sm:flex-row">
+						<div className="flex items-center ml-10 z-10 -mt-8 sm:-mt-0">
+							<Logo />
 						</div>
-						<div className="ham flex z-50 items-center  bg-primary  md:h-[80px] px-4 rounded-2xl">
+						<div className="ham flex z-50 items-center  bg-primary  md:h-[60px] px-4 rounded-2xl mt-12 sm:mt-0">
 							<div className="cursor-pointer ">
 								{user?.userId ? (
 									<button
@@ -109,7 +110,7 @@ const Header = () => {
 				</div>
 			</div>
 
-			<div className={` navigation flex ${openHam ? `show` : ''} z-30`} id="home">
+			<div className={` navigation flex ${openHam ? `show` : ''} z-30 pt-10 sm:pt-0`} id="home">
 				<div className="left pl-[2rem] md:pl-[5rem] pt-[4rem] ">
 					<nav className="menu text-start">
 						<ul className="mt-10 ">
