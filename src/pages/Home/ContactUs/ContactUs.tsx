@@ -23,7 +23,7 @@ const ContactUs = () => {
 						</div>
 						<textarea
 							placeholder="Message"
-							className="w-full mt-8 px-4 py-2 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg focus:ring-2 focus:ring-[#e2211c] text-white placeholder-white"
+							className="w-full h-[150px] mt-8 px-4 py-2 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg focus:ring-2 focus:ring-[#e2211c] text-white placeholder-white"
 						></textarea>
 						<button className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300">
 							Submit
