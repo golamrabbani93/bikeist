@@ -11,8 +11,10 @@ import {getCurrentTheme} from '../../../../redux/features/theme/themeSlice';
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {bookingSchema} from '../../../../schemas/booking/booking.schema';
 import {zodResolver} from '@hookform/resolvers/zod/src/zod.js';
+import useScrollTop from '../../../../hooks/useScrollTop';
 
 const SingleBikeDetails = () => {
+	useScrollTop();
 	const {id} = useParams();
 
 	const {data, isLoading} = useGetABikeQuery(id);
@@ -28,7 +30,7 @@ const SingleBikeDetails = () => {
 				style={{backgroundImage: `url(${bikeData?.image})`}}
 			>
 				<div className="absolute inset-0 bg-black bg-opacity-70"></div>
-				<div className="relative max-w-5xl mx-auto bg-white bg-opacity-20 backdrop-blur-lg p-10 rounded-2xl shadow-lg border border-white border-opacity-30">
+				<div className="relative max-w-5xl mx-auto bg-white bg-opacity-20 backdrop-blur-lg p-10 rounded-2xl shadow-lg border border-white border-opacity-30 mt-20">
 					<div className="grid grid-cols-1 md:grid-cols-2 ">
 						{/* Bike Image */}
 						<img
@@ -105,7 +107,7 @@ const BookingModal = ({bikeData}: {bikeData: TBike}) => {
 				onClick={showModal}
 				className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300"
 			>
-				Book Now
+				{bikeData.isAvailable ? 'Book Now' : 'Already Booked'}
 			</button>
 			<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
 				<Modal

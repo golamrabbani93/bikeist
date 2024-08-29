@@ -20,11 +20,7 @@ const FeaturedBike = () => {
 				<div className="">
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 						{data?.data?.slice(0, 8)?.map((item: TBike) => (
-							<Link
-								to={`/shop/category/${item?.name.toLowerCase()}`}
-								className="category-item"
-								key={item?._id}
-							>
+							<Link to={`bikes/${item?._id}`} className="category-item" key={item?._id}>
 								<div className="relative main-banner">
 									<div className="banner-animation relative ">
 										<img src={item.image} alt="" className="w-full z-[4]" />

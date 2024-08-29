@@ -11,6 +11,7 @@ import DashBoardLayout from '../layouts/dashBoardLayout/DashBoardLayout';
 import PaymentLayout from '../layouts/PaymentLayout/PaymentLayout';
 import {adminPath} from './admin.routes';
 import NotFound404 from '../pages/404/NotFound404';
+import SingleBikeDetails from '../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
 
 const router = createBrowserRouter([
 	{
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
 			{
 				path: '/login',
 				element: <Login />,
+			},
+			{
+				path: 'bikes/:id',
+				element: <SingleBikeDetails />,
 			},
 		],
 	},
