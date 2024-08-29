@@ -2,7 +2,7 @@ import AdminDashboard from '../pages/DashBoard/Admin/AdminDashboard';
 import BikeLIst from '../pages/DashBoard/Admin/BikeManagement/BikeList';
 import CreateBike from '../pages/DashBoard/Admin/BikeManagement/CreateBike';
 import ReturnBike from '../pages/DashBoard/Admin/BikeManagement/ReturnBike';
-import CreateAdmin from '../pages/DashBoard/Admin/UserManagement/createAdmin';
+import CreateAdmin from '../pages/DashBoard/Admin/UserManagement/CreateAdmin';
 
 export const adminPath = [
 	{
