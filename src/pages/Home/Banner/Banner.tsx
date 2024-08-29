@@ -1,5 +1,8 @@
 import {Carousel} from 'antd';
 import SingleBanner from './SingleBanner/SingleBanner';
+import {useState} from 'react';
+import {useGetAllBikeQuery} from '../../../redux/features/bike/bike.management.api';
+import {FieldValues, SubmitHandler} from 'react-hook-form';
 
 const bannerData = [
 	{
@@ -22,6 +25,14 @@ const bannerData = [
 ];
 
 const Banner = () => {
+	const [seacrhValue, setSeacrhValue] = useState('a');
+	const {data} = useGetAllBikeQuery([{name: 'searchTerm', value: seacrhValue}]);
+	console.log('🚀🚀: Banner -> data', data);
+	const handelSeacrch: SubmitHandler<FieldValues> = (e) => {
+		const value = e.target.value;
+		setSeacrhValue(value);
+	};
+
 	return (
 		<div className="text-white relative">
 			<Carousel dotPosition="right" autoplay>
@@ -30,28 +41,14 @@ const Banner = () => {
 				})}
 			</Carousel>
 			<div className="container mx-auto">
-				<div className="flex justify-center items-center w-full   absolute top-[85%]  xl:top-[80%] left-0 px-4">
+				<div className="flex justify-center items-center  flex-col w-full   absolute top-[85%]  xl:top-[80%] left-0 px-4">
 					<input
+						onChange={(e) => handelSeacrch(e)}
 						type="text"
 						className="w-full md:w-[50%] h-[50px] border rounded-l border-white outline-none px-4 text-white bg-transparent focus:border-primary transition-all duration-500"
 						placeholder="Search Bike"
 					/>
-					<button className="btn bg-primary hover:bg-secondary rounded-r-md h-[50px] px-2 uppercase text-white font-bold ">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							strokeWidth={1.5}
-							stroke="currentColor"
-							className="size-6 md:size-8"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-							/>
-						</svg>
-					</button>
+					<div className="bg-red-500 w-full md:w-[50%] h-[500px] z-50 hidden"></div>
 				</div>
 			</div>
 		</div>
