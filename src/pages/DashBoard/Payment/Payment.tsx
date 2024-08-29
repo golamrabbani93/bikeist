@@ -2,6 +2,7 @@ import moment from 'moment';
 import {useLocation} from 'react-router-dom';
 import PaymentModal from './PaymentModal';
 import DiscountSpinner from '../Discount/DiscountSpinner';
+import {useState} from 'react';
 
 const Payment = () => {
 	const location = useLocation();
@@ -10,9 +11,26 @@ const Payment = () => {
 	const startTime = bikeData?.startTime;
 	const modifyDate = moment(new Date(startTime)).format(' Do MMMM YYYY, h:mm A');
 
+	const [discount, setDiscount] = useState<number | undefined>(undefined);
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const handleCoupon = (e: any) => {
-		console.log(e.target.value);
+	const handleCoupon = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const discountCode = e.target.value; // Access the value directly
+
+		if (!discountCode) {
+			// Handle the case where the discount code is empty or undefined
+			console.log('Discount code is empty or undefined');
+			setDiscount(undefined);
+			return;
+		}
+
+		console.log(discountCode);
+
+		// Slice the last two digits only if discountCode is defined and has a sufficient length
+		const lastTwoDigits = parseInt(discountCode.slice(-2), 10);
+
+		// Update the discount state with the extracted number
+		setDiscount(lastTwoDigits);
 	};
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-primary to-gray-900 flex items-center justify-center p-4">
@@ -26,7 +44,7 @@ const Payment = () => {
 					<h2 className="text-xl text-white mb-2">Booking Summary</h2>
 					<p className="text-gray-300">Bike: {bikeDetails?.name}</p>
 					<p className="text-gray-300">Start Time:{modifyDate}</p>
-					<p className="text-gray-300">Amount Due: ${amount}</p>
+					<p className="text-gray-300">Amount: ${amount}</p>
 				</div>
 
 				{/* Payment Method Selection */}
@@ -47,7 +65,12 @@ const Payment = () => {
 						/>
 					</div>
 				</div>
-				<PaymentModal amount={amount} bikeDetails={bikeDetails} startTime={startTime} />
+				<PaymentModal
+					discount={discount}
+					amount={amount}
+					bikeDetails={bikeDetails}
+					startTime={startTime}
+				/>
 			</div>
 		</div>
 	);

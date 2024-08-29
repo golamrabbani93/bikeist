@@ -11,7 +11,9 @@ const PaymentModal = ({
 	paymentStatus,
 	startTime,
 	rentalId,
+	discount,
 }: {
+	discount?: number;
 	amount: number;
 	bikeDetails: TBike;
 	paymentStatus?: string;
@@ -19,7 +21,7 @@ const PaymentModal = ({
 	rentalId?: string;
 }) => {
 	const [open, setOpen] = useState(false);
-	console.log({bikeDetails, amount, paymentStatus, rentalId});
+	// console.log({bikeDetails, amount, paymentStatus, rentalId});
 	const showModal = () => {
 		setOpen(true);
 	};
@@ -54,6 +56,7 @@ const PaymentModal = ({
 							startTime={startTime}
 							paymentStatus={paymentStatus}
 							rentalId={rentalId}
+							discount={discount}
 						/>
 					</Elements>
 				</Modal>

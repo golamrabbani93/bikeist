@@ -23,6 +23,7 @@ type TProps = {
 	startTime?: string;
 	paymentStatus?: string;
 	rentalId?: string;
+	discount?: number;
 };
 const CheckoutForm: React.FC<TProps> = ({
 	amount,
@@ -31,7 +32,9 @@ const CheckoutForm: React.FC<TProps> = ({
 	paymentStatus,
 	setOpen,
 	rentalId,
+	discount,
 }) => {
+	console.log('🚀🚀: discount', discount);
 	const stripe = useStripe();
 	const elements = useElements();
 	const [cardError, SetCardError] = useState('');
@@ -136,7 +139,9 @@ const CheckoutForm: React.FC<TProps> = ({
 					const newBikeData = {
 						bikeId: bikeDetails._id,
 						startTime: startTime,
-						payment: amount,
+						payment: 0,
+						advance: amount,
+						discount: discount,
 					};
 
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -24,7 +24,8 @@ const DiscountSpinner = () => {
 
 	const handleSpinComplete = () => {
 		setWinningDiscount(data[prizeNumber].option);
-		setCouponCode(data[prizeNumber].code); // Set the coupon code based on the prize number
+		setCouponCode(data[prizeNumber].code);
+
 		setMustSpin(false);
 	};
 
