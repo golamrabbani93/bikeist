@@ -10,6 +10,7 @@ import {toast} from 'sonner';
 import {TResponse} from '../../../../types';
 import {useCreateCouponMutation} from '../../../../redux/features/coupon/couponManagement.api';
 import {couponSchema} from '../../../../schemas/coupon/coupo.schema';
+import {useNavigate} from 'react-router-dom';
 
 const CreateCoupon = () => {
 	const selectedTheme = useAppSelector(getCurrentTheme);
@@ -18,7 +19,7 @@ const CreateCoupon = () => {
 	const darkTheme = {
 		algorithm: theme.darkAlgorithm,
 	};
-
+	const navigate = useNavigate();
 	const handeleCreate: SubmitHandler<FieldValues> = async (data) => {
 		const toastId = toast.loading('Coupon Creating...');
 		console.log(data);
@@ -30,6 +31,7 @@ const CreateCoupon = () => {
 			toast.error(res?.error?.data?.message, {id: toastId, duration: 2000});
 		} else {
 			toast.success('Coupon Creating Successful', {id: toastId, duration: 2000});
+			navigate('/admin/coupon-list');
 		}
 	};
 	return (

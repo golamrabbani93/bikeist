@@ -1,3 +1,5 @@
+import {TQueryParam, TResponseRedux} from '../../../types';
+import {TCoupon} from '../../../types/coupon.type';
 import {baseApi} from '../../api/baseApi';
 
 const couponApi = baseApi.injectEndpoints({
@@ -10,7 +12,29 @@ const couponApi = baseApi.injectEndpoints({
 			}),
 			invalidatesTags: ['coupon'],
 		}),
+		getAllCoupons: builder.query({
+			query: (args) => {
+				const params = new URLSearchParams();
+
+				if (args) {
+					args.map((item: TQueryParam) => {
+						params.append(item.name, item.value as string);
+					});
+				}
+				return {
+					url: '/coupons',
+					method: 'GET',
+					params: params,
+				};
+			},
+			providesTags: ['coupon'],
+			transformResponse: (response: TResponseRedux<TCoupon[]>) => {
+				return {
+					data: response?.data,
+				};
+			},
+		}),
 	}),
 });
 
-export const {useCreateCouponMutation} = couponApi;
+export const {useCreateCouponMutation, useGetAllCouponsQuery} = couponApi;

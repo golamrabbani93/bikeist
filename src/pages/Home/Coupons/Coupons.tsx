@@ -13,7 +13,7 @@ const Coupons = () => {
 								<h3 className="text-3xl font-bold mb-6 text-gray-900 z-10">Active Promotions</h3>
 								<div className="p-4 bg-white rounded-lg mb-4 shadow-lg z-10 relative">
 									<p className="text-2xl font-semibold text-primary">
-										Use code <span className="font-bold">SAVE20</span> for 20% off your first
+										Use code <span className="font-bold">DISCOUNT20</span> for 30% off your first
 										rental!
 									</p>
 								</div>

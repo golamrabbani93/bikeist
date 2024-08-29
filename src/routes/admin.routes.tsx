@@ -2,6 +2,7 @@ import AdminDashboard from '../pages/DashBoard/Admin/AdminDashboard';
 import BikeLIst from '../pages/DashBoard/Admin/BikeManagement/BikeList';
 import CreateBike from '../pages/DashBoard/Admin/BikeManagement/CreateBike';
 import ReturnBike from '../pages/DashBoard/Admin/BikeManagement/ReturnBike';
+import AllCoupon from '../pages/DashBoard/Admin/CouponManagement/AllCoupon';
 import CreateCoupon from '../pages/DashBoard/Admin/CouponManagement/CreateCoupon';
 import CreateAdmin from '../pages/DashBoard/Admin/UserManagement/CreateAdmin';
 
@@ -49,6 +50,11 @@ export const adminPath = [
 				name: 'Create Coupon',
 				path: 'create-coupon',
 				element: <CreateCoupon />,
+			},
+			{
+				name: 'Coupon List',
+				path: 'coupon-list',
+				element: <AllCoupon />,
 			},
 		],
 	},
