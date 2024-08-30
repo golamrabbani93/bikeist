@@ -12,6 +12,7 @@ import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {bookingSchema} from '../../../../schemas/booking/booking.schema';
 import {zodResolver} from '@hookform/resolvers/zod/src/zod.js';
 import useScrollTop from '../../../../hooks/useScrollTop';
+import {Link} from 'react-router-dom';
 
 const SingleBikeDetails = () => {
 	useScrollTop();
@@ -64,8 +65,14 @@ const SingleBikeDetails = () => {
 									</li>
 								</ul>
 							</div>
-
-							<BookingModal bikeData={bikeData as TBike} />
+							<div className="flex gap-3">
+								<Link to={'/bikes/comparison'}>
+									<button className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300">
+										Comparison Bike
+									</button>
+								</Link>
+								<BookingModal bikeData={bikeData as TBike} />
+							</div>
 						</div>
 					</div>
 				</div>

@@ -11,7 +11,10 @@ const FeaturedBike = () => {
 		return <MainLoader />;
 	}
 	return (
-		<div className="pt-16 bg-gradient-to-r from-secondary via-primary to-secondary text-white">
+		<div
+			className="pt-16 bg-gradient-to-r from-secondary via-primary to-secondary text-white"
+			id="fBike"
+		>
 			<div className="">
 				<div className="container mx-auto mb-8">
 					<h2 className="uppercase text-4xl font-extrabold ml-4 text-white text-center">

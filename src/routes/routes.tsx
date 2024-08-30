@@ -12,6 +12,7 @@ import PaymentLayout from '../layouts/PaymentLayout/PaymentLayout';
 import {adminPath} from './admin.routes';
 import NotFound404 from '../pages/404/NotFound404';
 import SingleBikeDetails from '../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
+import ComparisonTool from '../components/ComparisonTool/ComparisonTool';
 
 const router = createBrowserRouter([
 	{
@@ -60,7 +61,15 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/payment',
-		element: <PaymentLayout />,
+		element: (
+			<ProtectedRoute role="user">
+				<PaymentLayout />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: 'bikes/comparison',
+		element: <ComparisonTool />,
 	},
 	{
 		path: '*',
