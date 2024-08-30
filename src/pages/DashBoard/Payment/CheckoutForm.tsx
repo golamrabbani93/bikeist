@@ -49,11 +49,14 @@ const CheckoutForm: React.FC<TProps> = ({
 	useEffect(() => {
 		const createPaymentIntent = async () => {
 			try {
-				const res = await fetch('http://localhost:5000/api/create-payment-intent', {
-					method: 'POST',
-					headers: {'Content-Type': 'application/json'},
-					body: JSON.stringify({price: amount}),
-				});
+				const res = await fetch(
+					'https://bike-rental-reservation-system-backend.vercel.app/api/create-payment-intent',
+					{
+						method: 'POST',
+						headers: {'Content-Type': 'application/json'},
+						body: JSON.stringify({price: amount}),
+					},
+				);
 
 				const data = await res.json();
 				setClientSecret(data.clientSecret);
