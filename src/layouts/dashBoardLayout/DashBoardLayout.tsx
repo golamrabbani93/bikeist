@@ -106,7 +106,8 @@ const DashBoardLayout = () => {
 					<Content>
 						<div
 							style={{
-								minHeight: 0,
+								minHeight: 340,
+								padding: 0,
 							}}
 						>
 							<Outlet />

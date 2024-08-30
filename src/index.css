@@ -50,7 +50,10 @@ body {
 .ant-tabs .ant-tabs-tab-btn:active {
 	color: #e2211c;
 }
-.ant-tabs-nav {
+/* .ant-tabs-nav {
 	background: #000 !important;
 	margin-bottom: 0 !important;
+} */
+.ant-spin-dot i {
+	background-color: #fff !important;
 }

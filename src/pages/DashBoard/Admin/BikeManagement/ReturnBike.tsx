@@ -18,7 +18,12 @@ export type TTableData = Pick<TRental, 'startTime' | 'totalCost' | 'returnTime'>
 const PaidTabs = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
-	const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+	const [params, setParams] = useState<TQueryParam[] | undefined>([
+		{
+			name: 'paymentStatus',
+			value: 'unpaid',
+		},
+	]);
 
 	const {data, isLoading, isFetching} = useGetMyRentalsQuery(params, {pollingInterval: 15000});
 	const [returnBike] = useReturnBikeMutation();

@@ -13,6 +13,7 @@ import {
 import {FieldValues, SubmitHandler} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 import {setActiveTab} from '../../../redux/features/tab/tabSlice';
+import {Spin} from 'antd';
 export type TBikeData = {
 	bikeData: TBike;
 	startTime: string;
@@ -42,6 +43,7 @@ const CheckoutForm: React.FC<TProps> = ({
 	const [createRental] = useCreateRentalMutation();
 	const [updateRental] = useUpdateRentalMutation();
 	const dispatch = useAppDispatch();
+	const [processing, setProcessing] = useState(false);
 	// * get Payment Secret
 	const [clientSecret, setClientSecret] = useState('');
 	const user = useAppSelector(getCurrentUser);
@@ -71,6 +73,7 @@ const CheckoutForm: React.FC<TProps> = ({
 	}, [amount]);
 
 	const handleSubmit: SubmitHandler<FieldValues> = async (event) => {
+		setProcessing(true);
 		// Block native form submission.
 		event.preventDefault();
 
@@ -112,6 +115,7 @@ const CheckoutForm: React.FC<TProps> = ({
 
 		if (confirmError) {
 			console.log(confirmError);
+			toast.error('Payment Failed');
 		} else {
 			if (paymentIntent.status === 'succeeded') {
 				const toastId = toast.loading('Payment Processing...');
@@ -134,6 +138,7 @@ const CheckoutForm: React.FC<TProps> = ({
 						dispatch(setActiveTab('1'));
 						setOpen(false);
 						navigate(`/user/my-rental`);
+						setProcessing(false);
 					}
 				} else {
 					const newBikeData = {
@@ -153,6 +158,7 @@ const CheckoutForm: React.FC<TProps> = ({
 						toast.success('Booking Successful', {id: toastId, duration: 2000});
 						setOpen(false);
 						navigate('/user/my-rental');
+						setProcessing(false);
 					}
 				}
 			}
@@ -186,7 +192,7 @@ const CheckoutForm: React.FC<TProps> = ({
 					type="submit"
 					className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300"
 				>
-					Pay Now
+					{processing ? <Spin /> : 'Pay Now'}
 				</button>
 			</form>
 			{cardError && <p className="text-red-500 mt-2">{cardError}</p>}

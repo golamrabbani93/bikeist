@@ -15,7 +15,9 @@ export type TTableData = Pick<
 const BikeLIst = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
-	const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+	const [params, setParams] = useState<TQueryParam[] | undefined>([
+		{name: 'isAvailable', value: true},
+	]);
 	const {data, isLoading, isFetching} = useGetAllBikeQuery(params);
 
 	const bikesData = data?.data;

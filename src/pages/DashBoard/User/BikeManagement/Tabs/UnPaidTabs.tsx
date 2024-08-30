@@ -166,8 +166,14 @@ const BikeLIst = () => {
 	}
 	return (
 		<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
-			<div className="dark">
-				<Table loading={isFetching} columns={columns} dataSource={tableData} pagination={false} />
+			<div className="">
+				<Table
+					loading={isFetching}
+					columns={columns}
+					dataSource={tableData}
+					pagination={false}
+					footer={undefined}
+				/>
 			</div>
 		</ConfigProvider>
 	);

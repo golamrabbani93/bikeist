@@ -25,7 +25,9 @@ export type TTableData = Pick<
 const BikeLIst = () => {
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
-	const [params, setParams] = useState<TQueryParam[] | undefined>(undefined);
+	const [params, setParams] = useState<TQueryParam[] | undefined>([
+		{name: 'isAvailable', value: true},
+	]);
 	const {data, isLoading, isFetching} = useGetAllBikeQuery(params, {pollingInterval: 15000});
 
 	const bikesData = data?.data;
@@ -73,7 +75,7 @@ const BikeLIst = () => {
 			render: (item) => {
 				return (
 					<div>
-						<img className="w-[100px] h-[100px]" src={item} alt="" />
+						<img className="w-[100px] h-[100px] object-cover" src={item} alt="" />
 					</div>
 				);
 			},
