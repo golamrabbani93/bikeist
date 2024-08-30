@@ -68,13 +68,24 @@ const PaidTabs = () => {
 			key: 'returnTime',
 			dataIndex: 'returnTime',
 			render: (item) => {
-				return <div>{item === null ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
+				return (
+					<div>
+						{item === null ? (
+							<Tag color="#55acee">Upcoming</Tag>
+						) : (
+							moment(new Date(item)).format('Do MMM YY, h:mm A')
+						)}
+					</div>
+				);
 			},
 		},
 		{
 			title: 'Total Cost',
 			key: 'totalCost',
 			dataIndex: 'totalCost',
+			render(item) {
+				return <div>{`$${item}`}</div>;
+			},
 		},
 	];
 

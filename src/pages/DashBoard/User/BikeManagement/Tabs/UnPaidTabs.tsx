@@ -36,7 +36,6 @@ const BikeLIst = () => {
 		],
 		{pollingInterval: 15000},
 	);
-	console.log('🚀🚀: BikeLIst -> data', data);
 	const rentalData = data?.data as TRental[];
 	const tableData = rentalData?.map((rental: TRental) => {
 		const {_id, bikeId, totalCost, startTime, returnTime, advance, discount, payment} = rental;
@@ -46,7 +45,7 @@ const BikeLIst = () => {
 			totalCost,
 			bike: bikeId,
 			endTime: returnTime,
-			startTime: moment(new Date(startTime)).format('Do MMMM YYYY, h:mm A'),
+			startTime: moment(new Date(startTime)).format('Do MMM YY, h:mm A'),
 			advance,
 			discount,
 			payment,
@@ -111,6 +110,15 @@ const BikeLIst = () => {
 				return <div>{item === 0 ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
 			},
 		},
+
+		{
+			title: 'Total Cost',
+			key: 'totalCost',
+			dataIndex: 'totalCost',
+			render: (item) => {
+				return <div>{item === 0 ? <Tag color="#55acee">Upcoming</Tag> : `$${item}`}</div>;
+			},
+		},
 		{
 			title: 'Total Payment',
 			key: 'payment',
@@ -121,22 +129,14 @@ const BikeLIst = () => {
 		},
 
 		{
-			title: 'Total Cost',
-			key: 'totalCost',
-			dataIndex: 'totalCost',
-			render: (item) => {
-				return <div>{item === 0 ? <Tag color="#55acee">Upcoming</Tag> : item}</div>;
-			},
-		},
-
-		{
 			title: 'Make Payment',
 			key: 'x',
 			render: (item) => {
 				const {totalCost, advance, discount} = item;
+
 				const remainingAmount = totalCost - advance;
-				const discountPercentage = remainingAmount * (discount / 100);
-				// const finalAmountDue = remainingAmount - discountPercentage;
+				const discountPercentage = totalCost * (discount / 100);
+
 				const fixed = Number(remainingAmount - discountPercentage).toFixed(2);
 				const amount = Number(fixed);
 
