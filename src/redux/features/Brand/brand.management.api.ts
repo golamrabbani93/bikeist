@@ -1,5 +1,5 @@
 import {TBrand} from '../../../types/brand.type';
-import {TQueryParam, TResponseReduxM} from '../../../types/global';
+import {TQueryParam, TResponseRedux} from '../../../types/global';
 import {baseApi} from '../../api/baseApi';
 
 const brandManagementApi = baseApi.injectEndpoints({
@@ -19,9 +19,9 @@ const brandManagementApi = baseApi.injectEndpoints({
 					params: params,
 				};
 			},
-			providesTags: ['bike', 'rental', 'brands'],
-			transformResponse: (response: TResponseReduxM<TBrand[]>) => {
-				const data = response?.data?.data || [];
+			providesTags: ['brands'],
+			transformResponse: (response: TResponseRedux<TBrand[]>) => {
+				const data = response?.data || [];
 
 				return {
 					data,

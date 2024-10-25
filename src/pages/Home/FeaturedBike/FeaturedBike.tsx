@@ -1,11 +1,14 @@
 import {Link} from 'react-router-dom';
-import {useGetAllBikeQuery} from '../../../redux/features/bike/bike.management.api';
+
 import './FeaturedBike.css';
-import {TBike} from '../../../types';
+
 import MainLoader from '../../../components/Loader/MainLoader/MainLoader';
 
+import {TBrand} from '../../../types/brand.type';
+import {useGetAllBrandQuery} from '../../../redux/features/Brand/brand.management.api';
+
 const FeaturedBike = () => {
-	const {data, isLoading} = useGetAllBikeQuery([{name: 'isAvailable', value: 'true'}]);
+	const {data, isLoading} = useGetAllBrandQuery('');
 
 	if (isLoading) {
 		return <MainLoader />;
@@ -18,19 +21,19 @@ const FeaturedBike = () => {
 			<div className="">
 				<div className="container mx-auto mb-8">
 					<h2 className="uppercase text-4xl font-extrabold ml-4 text-white text-center">
-						Available Bikes
+						All Bike Brands
 					</h2>
 				</div>
 
 				<div className="">
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-						{data?.data?.slice(0, 6)?.map((item: TBike) => (
+						{data?.data?.map((item: TBrand) => (
 							<Link to={`bikes/${item?._id}`} className="category-item" key={item?._id}>
 								<div className="relative main-banner">
 									<div className="banner-animation relative ">
 										<img src={item.image} alt="" className="w-full z-[4]" />
 										<div className="absolute top-3 left-3 bg-primary px-4 uppercase z-10 rounded-sm text-white font-bold">
-											{item.brand}
+											{item.name}
 										</div>
 										<div className="absolute bottom-3 left-0 w-full z-[4]">
 											<div className="flex justify-between items-center mx-4">
