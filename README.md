@@ -109,3 +109,11 @@ application.
 - **Checkout**: Proceed to the checkout page to complete your purchase. -**Admin Features**: Admin
   users can access the product management page to add, update, and delete products. Navigate to the
   admin panel and use the provided forms to manage the products.
+
+npm install
+# or
+yarn install
+
+npm run dev
+# or
+yarn dev
