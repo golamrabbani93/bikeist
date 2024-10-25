@@ -23,8 +23,8 @@ const FeaturedBike = () => {
 				</div>
 
 				<div className="">
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-						{data?.data?.slice(0, 8)?.map((item: TBike) => (
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+						{data?.data?.slice(0, 6)?.map((item: TBike) => (
 							<Link to={`bikes/${item?._id}`} className="category-item" key={item?._id}>
 								<div className="relative main-banner">
 									<div className="banner-animation relative ">

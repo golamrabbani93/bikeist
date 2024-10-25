@@ -23,15 +23,15 @@ const Header = () => {
 	};
 	return (
 		<div className="container relative mx-auto header">
-			<div className="absolute top-10 ">
-				<div className="container mx-auto">
-					<div className="flex flex-col sm:flex-row">
+			<div className="absolute top-10 w-full">
+				<div className="container mx-auto relative">
+					<div className="flex items-center flex-col sm:flex-row">
 						<div className="flex items-center ml-10 z-10 -mt-8 sm:-mt-0">
 							<Link to={'/'}>
 								<Logo />
 							</Link>
 						</div>
-						<div className="ham flex z-50 items-center  bg-primary  md:h-[60px] px-4 rounded-2xl mt-12 sm:mt-0">
+						<div className="ham flex z-50 items-center fixed  bg-primary  md:h-[60px] px-4 rounded-2xl mt-12 sm:mt-0">
 							<div className="cursor-pointer ">
 								{user?.userId ? (
 									<button

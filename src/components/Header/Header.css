@@ -8,8 +8,28 @@ svg {
 	z-index: 3;
 }
 .ham {
-	position: fixed;
-	right: 8%;
+	/* position: fixed;*/
+	right: 12%;
+}
+@media screen and (max-width: 1400px) {
+	.ham {
+		right: 5%;
+	}
+}
+@media screen and (max-width: 1600px) {
+	.ham {
+		right: 5%;
+	}
+}
+/* @media screen and (max-width: 2000px) {
+	.ham {
+		right: 5%;
+	}
+} */
+@media screen and (min-width: 2100px) and (max-width: 3800px) {
+	.ham {
+		right: 21%;
+	}
 }
 .ham > svg {
 	-webkit-tap-highlight-color: transparent;
