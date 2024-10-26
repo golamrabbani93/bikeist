@@ -5,6 +5,7 @@ import Testimonial from './Testimonial/Testimonial';
 import WhyChooseUs from './WhyChooseUs/WhyChooseUs';
 import Coupons from './Coupons/Coupons';
 import ContactUs from './ContactUs/ContactUs';
+import Brands from './Brands/Brands';
 
 const Home = () => {
 	useScrollTop();
@@ -12,6 +13,7 @@ const Home = () => {
 	return (
 		<div>
 			<Banner />
+			<Brands />
 			<FeaturedBike />
 			<Testimonial />
 			<WhyChooseUs />

@@ -11,6 +11,15 @@ export default {
 				accent: '#c6c6c6',
 				neutral: '#3D4451',
 			},
+			animation: {
+				shimmer: 'shimmer 1.5s infinite linear',
+			},
+			keyframes: {
+				shimmer: {
+					'0%': {backgroundPosition: '-200% 0'},
+					'100%': {backgroundPosition: '200% 0'},
+				},
+			},
 		},
 	},
 	plugins: [],

@@ -55,11 +55,11 @@ const Banner = () => {
 				})}
 			</Carousel>
 			<div className="container mx-auto">
-				<div className="flex justify-center items-center  flex-col w-full   absolute top-[85%]  xl:top-[80%] left-0 px-4">
+				<div className="flex justify-center items-center  flex-col w-full   absolute top-[85%]  xl:top-[85%] left-0 px-4">
 					<input
 						onChange={(e) => handelSeacrch(e)}
 						type="text"
-						className="w-full md:w-[50%] h-[50px] border rounded-l border-white outline-none px-4 text-white bg-transparent focus:border-primary transition-all duration-500"
+						className="container w-full md:w-[50%] h-[50px] border rounded-l border-white outline-none px-4 text-white bg-transparent focus:border-primary transition-all duration-500"
 						placeholder="Search Bike"
 					/>
 					<div
@@ -105,7 +105,7 @@ const Banner = () => {
 						)}
 					</div>
 					{/* arrow icon svg */}
-					<div className="mt-3">
+					{/* <div className="mt-3">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 80"
@@ -120,7 +120,7 @@ const Banner = () => {
 						>
 							<path d="M12 4v55M6 56l6 6 6-6" />
 						</svg>
-					</div>
+					</div> */}
 
 					<style>{`
 						@keyframes bounce {

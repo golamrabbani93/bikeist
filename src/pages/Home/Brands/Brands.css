@@ -1,0 +1,52 @@
+.category-item:hover button {
+	transition: all 0.3s;
+	background-color: #e2211c;
+	color: #fff;
+	z-index: 10;
+}
+.category-item:hover button > svg {
+	transition: all 0.3s;
+	background-color: #e2211c;
+	color: #fff;
+}
+
+/*Banner Animation*/
+.banner-animation {
+	position: relative;
+}
+.banner-animation::before {
+	background: #e2231cad;
+	bottom: 0;
+	content: '';
+	left: 50%;
+	position: absolute;
+	right: 50%;
+	top: 0;
+	opacity: 1;
+	width: 0;
+}
+.banner-animation::after {
+	background: rgba(255, 54, 93, 0.6);
+	bottom: 50%;
+	content: '';
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	opacity: 1;
+	width: 0;
+}
+.main-banner:hover .banner-animation::before {
+	left: 0;
+	right: 0;
+	opacity: 0;
+	width: auto;
+	transition: all 900ms linear;
+}
+.main-banner:hover .banner-animation::after {
+	top: 0;
+	bottom: 0;
+	opacity: 0;
+	width: auto;
+	transition: all 900ms linear;
+}

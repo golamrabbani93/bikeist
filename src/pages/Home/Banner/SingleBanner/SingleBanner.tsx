@@ -4,7 +4,7 @@ import {HashLink as Link} from 'react-router-hash-link';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SingleBanner = ({data}: {data: any}) => {
 	const contentStyle = {
-		height: '100vh',
+		height: '80vh',
 	};
 	const {image, quote, description} = data;
 	return (
@@ -13,7 +13,7 @@ const SingleBanner = ({data}: {data: any}) => {
 
 			<div className="banner_opacity absolute top-0 left-0 bg-[rgba(0,0,0,0.7)] h-full w-full"></div>
 			<div className="container mx-auto text-white">
-				<div className="absolute left-0 top-[35%] w-full">
+				<div className="absolute left-0 top-[30%] w-full">
 					<div className="text-center">
 						<h1 className="text-primary-focus text-3xl md:text-5xl xl:text-[70px] font-bold  leading-[40px] md:leading-[90px] mt-2 mb-4 uppercase text-center">
 							{quote}
