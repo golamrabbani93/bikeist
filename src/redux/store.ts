@@ -2,6 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import authReducer from './features/auth/authSlice';
 import themeReducer from './features/theme/themeSlice';
 import tabReducer from './features/tab/tabSlice';
+import wishlistReducer from './features/wishlist/wishlistSlice';
 import {baseApi} from './api/baseApi';
 
 import {
@@ -23,11 +24,13 @@ const persistConfig = {
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 const persistedThemeReducer = persistReducer(persistConfig, themeReducer);
+const persistedWishlistReducer = persistReducer(persistConfig, wishlistReducer);
 
 export const store = configureStore({
 	reducer: {
 		auth: persistedAuthReducer,
 		theme: persistedThemeReducer,
+		wishlist: persistedWishlistReducer,
 		tab: tabReducer,
 		[baseApi.reducerPath]: baseApi.reducer,
 	},

@@ -13,6 +13,7 @@ import {adminPath} from './admin.routes';
 import NotFound404 from '../pages/404/NotFound404';
 import SingleBikeDetails from '../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
 import ComparisonTool from '../components/ComparisonTool/ComparisonTool';
+import Contact from '../pages/Contact/Contact';
 
 const router = createBrowserRouter([
 	{
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
 			{
 				path: '/about-us',
 				element: <About />,
+			},
+			{
+				path: '/contact-us',
+				element: <Contact />,
 			},
 			{
 				path: '/sign-up',

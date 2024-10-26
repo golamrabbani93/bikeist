@@ -4,7 +4,6 @@ import FeaturedBike from './FeaturedBike/FeaturedBike';
 import Testimonial from './Testimonial/Testimonial';
 import WhyChooseUs from './WhyChooseUs/WhyChooseUs';
 import Coupons from './Coupons/Coupons';
-import ContactUs from './ContactUs/ContactUs';
 import Brands from './Brands/Brands';
 
 const Home = () => {
@@ -18,7 +17,6 @@ const Home = () => {
 			<Testimonial />
 			<WhyChooseUs />
 			<Coupons />
-			<ContactUs />
 		</div>
 	);
 };

@@ -2,11 +2,11 @@ const ContactUs = () => {
 	return (
 		<div
 			className="h-full bg-cover bg-center relative py-12 px-4"
-			style={{backgroundImage: "url('https://i.ibb.co/GWPHBrD/testibg.jpg')"}}
+			style={{backgroundImage: "url('https://i.ibb.co/KDPkP2P/hero-2.jpg')"}}
 		>
 			<div className="absolute inset-0 bg-black bg-opacity-70"></div>
 			<div className="relative max-w-4xl mx-auto text-center">
-				<h2 className="text-4xl font-bold text-white mb-8 uppercase">Contact Us</h2>
+				{/* <h2 className="text-4xl font-bold text-white mb-8 uppercase">Contact Us</h2> */}
 				<div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-xl shadow-lg border border-white border-opacity-30">
 					<form>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
