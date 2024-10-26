@@ -104,6 +104,45 @@ const Banner = () => {
 							</h2>
 						)}
 					</div>
+					{/* arrow icon svg */}
+					<div className="mt-3">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 80"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="3"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							width="50px"
+							height="60px"
+							className="animate-bounce"
+						>
+							<path d="M12 4v55M6 56l6 6 6-6" />
+						</svg>
+					</div>
+
+					<style>{`
+						@keyframes bounce {
+							0%,
+							20%,
+							50%,
+							80%,
+							100% {
+								transform: translateY(10px);
+							}
+							40% {
+								transform: translateY(-10px);
+							}
+							60% {
+								transform: translateY(-5px);
+							}
+						}
+
+						.animate-bounce {
+							animation: bounce 2s infinite;
+						}
+					`}</style>
 				</div>
 			</div>
 		</div>
