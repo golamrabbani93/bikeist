@@ -1,22 +1,24 @@
+import {Link} from 'react-router-dom';
 import {removeItem} from '../../../../redux/features/wishlist/wishlistSlice';
 import {useAppDispatch} from '../../../../redux/hooks';
 import {TBike} from '../../../../types';
 
 interface CartDataProps {
 	item: TBike;
+	openWishlist?: boolean;
+	setOpenWishlist?: (open: boolean) => void;
 }
 
-const SingleWishList: React.FC<CartDataProps> = ({item}) => {
+const SingleWishList: React.FC<CartDataProps> = ({item, openWishlist, setOpenWishlist}) => {
 	const dispatch = useAppDispatch();
 	const handleRevomeItem = (id: string) => {
-		console.log('🚀🚀: handleRevomeItem -> id', id);
 		dispatch(removeItem(id));
 	};
 	return (
 		<div>
-			<div className="self-stretch flex-col justify-start items-start gap-5 flex mt-4">
-				<div className="self-stretch justify-between items-center inline-flex">
-					<div className="justify-start items-center flex">
+			<div className="self-stretch flex-col justify-start items-start gap-5 flex mt-4 w-full">
+				<div className="self-stretch justify-between items-center flex">
+					<div className="justify-between items-center flex">
 						<div className="w-[88.40px] h-full pr-5 flex-col justify-start items-start inline-flex">
 							<div className="self-stretch h-[80px] w-[88.40px] p-[0.80px] flex-col justify-center items-start flex ">
 								<img alt="" className="w-[88.40px] h-[80px] relative" src={item.image} />
@@ -24,15 +26,24 @@ const SingleWishList: React.FC<CartDataProps> = ({item}) => {
 						</div>
 						<div className="flex-col justify-start items-start inline-flex ml-3">
 							<div className="self-stretch h-[24.50px] flex-col justify-start items-start flex">
-								<h2 className="text-neutral-500 text-sm font-bold  leading-normal">{item.name}</h2>
+								<Link
+									to={`/bikes/${item._id}`}
+									onClick={() => openWishlist && setOpenWishlist && setOpenWishlist(!openWishlist)}
+									className="text-neutral-500 text-sm font-bold  leading-normal hover:text-primary"
+								>
+									{item.name}
+								</Link>
 							</div>
-							<div className="self-stretch h-[24.50px] pr-[34.10px] flex-col justify-start items-start flex">
-								<h3 className="text-neutral-500 text-sm font-normal mt-5  leading-normal">
-									{/* {item.quantity} x ${item.price} */}
+							<div className="self-stretch  pr-[34.10px] flex-col justify-start items-start flex">
+								<h3 className="text-neutral-500 text-sm font-normal mt-2 leading-normal text-primary">
+									${item.pricePerHour} / Hour
 								</h3>
 							</div>
 						</div>
 					</div>
+					{/* <div className=" border p-2 rounded-lg ">
+						<BookingModal bikeData={item} rent={true} />
+					</div> */}
 					<div className="w-[11px] pt-[5.60px] pb-[4.90px] flex-col justify-start items-end inline-flex ml-8">
 						<button
 							onClick={() => handleRevomeItem(item._id)}

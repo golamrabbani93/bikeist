@@ -6,7 +6,7 @@ export interface ThemeState {
 }
 
 const initialState: ThemeState = {
-	theme: 'light', // Default to 'light' theme
+	theme: 'dark', // Default to 'Dark' theme
 };
 
 const themeSlice = createSlice({

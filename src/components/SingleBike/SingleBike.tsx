@@ -4,6 +4,7 @@ import {TBike} from '../../types';
 import {addItem, getWishlistItems, removeItem} from '../../redux/features/wishlist/wishlistSlice';
 import {Link} from 'react-router-dom';
 import {BsSuitHeart, BsSuitHeartFill} from 'react-icons/bs';
+import {BookingModal} from '../../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
 
 interface SingleBikeProps {
 	bike: TBike;
@@ -38,14 +39,11 @@ const SingleBike = ({bike}: SingleBikeProps) => {
 
 					<div className="action-link">
 						<div>
-							<Link to={''}>
-								<label
-									className="text-white hover:text-primary font-bold uppercase transition duration-500 cursor-pointer"
-									htmlFor="success-modal"
-								>
-									Rent Now
-								</label>
-							</Link>
+							{/* <Link to={''}> */}
+
+							<BookingModal bikeData={bike as TBike} rent={true} />
+							{/* </label> */}
+							{/* </Link> */}
 						</div>
 						<div>
 							<button

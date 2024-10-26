@@ -22,10 +22,17 @@ const WishList: React.FC<SideNavProps> = ({openWishlist, setOpenWishlist}) => {
 				<div className="self-stretch  flex-col justify-start items-start flex">
 					<h2 className="text-xl font-bold uppercase text-White">My Wishlist</h2>
 
-					<div className="mt-8">
+					<div className="mt-8 w-full">
 						{/* !single Cart List */}
 						{wishlist?.length > 0 ? (
-							wishlist?.map((item: TBike) => <SingleWishList key={item._id} item={item} />)
+							wishlist?.map((item: TBike) => (
+								<SingleWishList
+									key={item._id}
+									item={item}
+									openWishlist={openWishlist}
+									setOpenWishlist={setOpenWishlist}
+								/>
+							))
 						) : (
 							<h2 className="font-bold uppercase text-primary">No Items Found</h2>
 						)}

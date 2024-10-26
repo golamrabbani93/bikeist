@@ -13,6 +13,7 @@ import {bookingSchema} from '../../../../schemas/booking/booking.schema';
 import {zodResolver} from '@hookform/resolvers/zod/src/zod.js';
 import useScrollTop from '../../../../hooks/useScrollTop';
 import {Link} from 'react-router-dom';
+import {getCurrentUser} from '../../../../redux/features/auth/authSlice';
 
 const SingleBikeDetails = () => {
 	useScrollTop();
@@ -71,7 +72,7 @@ const SingleBikeDetails = () => {
 										Comparison Bike
 									</button>
 								</Link>
-								<BookingModal bikeData={bikeData as TBike} />
+								<BookingModal bikeData={bikeData as TBike} rent={false} />
 							</div>
 						</div>
 					</div>
@@ -80,11 +81,13 @@ const SingleBikeDetails = () => {
 		</div>
 	);
 };
-const BookingModal = ({bikeData}: {bikeData: TBike}) => {
+export const BookingModal = ({bikeData, rent}: {bikeData: TBike; rent: boolean}) => {
 	const [open, setOpen] = useState(false);
 	const navigate = useNavigate();
 	// *theme Management
 	const selectedTheme = useAppSelector(getCurrentTheme);
+	//get user
+	const user = useAppSelector(getCurrentUser);
 	const showModal = () => {
 		setOpen(true);
 	};
@@ -109,27 +112,39 @@ const BookingModal = ({bikeData}: {bikeData: TBike}) => {
 
 	return (
 		<>
-			<button
-				disabled={!bikeData.isAvailable}
-				onClick={showModal}
-				className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300"
-			>
-				{bikeData.isAvailable ? 'Book Now' : 'Already Booked'}
-			</button>
-			<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
-				<Modal
-					open={open}
-					title={`${bikeData?.name}Bike Book Now`}
-					onCancel={handleCancel}
-					footer={[]}
+			{rent ? (
+				<button
+					disabled={!bikeData.isAvailable}
+					onClick={showModal}
+					className="text-white hover:text-primary font-bold uppercase transition duration-500 cursor-pointer"
 				>
+					Rent Now
+				</button>
+			) : (
+				<button
+					disabled={!bikeData.isAvailable}
+					onClick={showModal}
+					className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300"
+				>
+					{bikeData.isAvailable ? 'Book Now' : 'Already Booked'}
+				</button>
+			)}
+
+			<ConfigProvider theme={selectedTheme === 'light' ? lightTheme : darkTheme}>
+				<Modal open={open} title={`${bikeData?.name}`} onCancel={handleCancel} footer={[]}>
 					<div className="mt-2">
-						<BikeistForm onSubmit={handleSubmit} resolver={zodResolver(bookingSchema)}>
-							<BikeistDatePicker name="startTime" label="Select Booking Start Time" />
-							<button className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300 w-full">
-								Pay Now
-							</button>
-						</BikeistForm>
+						{user === null ? (
+							<Link to="/login" className="text-red-500 hover:text-red-700 text-xl">
+								You need to login first
+							</Link>
+						) : (
+							<BikeistForm onSubmit={handleSubmit} resolver={zodResolver(bookingSchema)}>
+								<BikeistDatePicker name="startTime" label="Select Booking Start Time" />
+								<button className="mt-8 px-6 py-3 bg-[#e2211c] text-white font-bold uppercase rounded-lg hover:bg-red-700 transition duration-300 w-full">
+									Pay Now
+								</button>
+							</BikeistForm>
+						)}
 					</div>
 				</Modal>
 			</ConfigProvider>
