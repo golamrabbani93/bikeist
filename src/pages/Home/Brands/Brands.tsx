@@ -28,7 +28,7 @@ const Brands = () => {
 				<div className="">
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 						{data?.data?.map((item: TBrand) => (
-							<Link to={`bikes/${item?._id}`} className="category-item" key={item?._id}>
+							<Link to={`/bikes/brands/${item?.name}`} className="category-item" key={item?._id}>
 								<div className="relative main-banner">
 									<div className="banner-animation relative ">
 										<img src={item.image} alt="" className="w-full z-[4]" />

@@ -14,6 +14,7 @@ import NotFound404 from '../pages/404/NotFound404';
 import SingleBikeDetails from '../pages/DashBoard/User/BikeManagement/SingleBikeDetails';
 import ComparisonTool from '../components/ComparisonTool/ComparisonTool';
 import Contact from '../pages/Contact/Contact';
+import Bikes from '../pages/Bikes/bikes';
 
 const router = createBrowserRouter([
 	{
@@ -41,8 +42,16 @@ const router = createBrowserRouter([
 				element: <Login />,
 			},
 			{
-				path: 'bikes/:id',
+				path: '/bikes',
+				element: <Bikes />,
+			},
+			{
+				path: '/bikes/:id',
 				element: <SingleBikeDetails />,
+			},
+			{
+				path: 'bikes/brands/:name',
+				element: <Bikes />,
 			},
 		],
 	},
