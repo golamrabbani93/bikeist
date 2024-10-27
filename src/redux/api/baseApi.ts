@@ -10,7 +10,7 @@ import {
 import {RootState} from '../store';
 import {logOut, setUser} from '../features/auth/authSlice';
 const baseQuery = fetchBaseQuery({
-	baseUrl: 'http://localhost:5000/api',
+	baseUrl: 'https://bike-rental-reservation-system-backend.vercel.app/api',
 	prepareHeaders: (headers, {getState}) => {
 		const token = (getState() as RootState).auth.token;
 		if (token) {
