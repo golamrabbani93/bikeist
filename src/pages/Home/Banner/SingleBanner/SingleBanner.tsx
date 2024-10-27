@@ -1,5 +1,4 @@
 import {Button} from 'antd';
-// import {Link} from 'react-router-dom';
 import {HashLink as Link} from 'react-router-hash-link';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SingleBanner = ({data}: {data: any}) => {
@@ -22,7 +21,7 @@ const SingleBanner = ({data}: {data: any}) => {
 							{description}
 						</p>
 						<Button className="bg-primary border-0 hover:!bg-secondary !text-white md:w-[200px] h-[40px] font-bold uppercase cursor-pointer">
-							<Link to="#fBike">Rent a Bike Now</Link>
+							<Link to="/bikes">Rent a Bike Now</Link>
 						</Button>
 					</div>
 				</div>

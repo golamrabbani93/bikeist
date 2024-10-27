@@ -6,16 +6,24 @@ type TInputProps = {
 	name: string;
 	label?: string;
 	placeholder?: string;
+	value?: string;
 };
 
-const BikeistInput = ({type, name, label, placeholder}: TInputProps) => {
+const BikeistInput = ({type, name, label, placeholder, value}: TInputProps) => {
 	return (
 		<div style={{marginBottom: '20px'}}>
 			<Controller
 				name={name}
 				render={({field, fieldState: {error}}) => (
 					<Form.Item label={label}>
-						<Input {...field} type={type} id={name} size="large" placeholder={placeholder} />
+						<Input
+							{...field}
+							type={type}
+							id={name}
+							size="large"
+							placeholder={placeholder}
+							value={value}
+						/>
 						{error && <small className="text-[14px] text-primary">{error.message}</small>}
 					</Form.Item>
 				)}

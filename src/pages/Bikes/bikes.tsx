@@ -68,7 +68,7 @@ const Bikes = () => {
 						</Button>
 					</div>
 					{/* !right side bar */}
-					<div className="right-sid md:col-start-2 md:col-end-5">
+					<div className="right-side md:col-start-2 md:col-end-5 mt-10">
 						<h2 className="text-xl uppercase font-bold  border-b-2 pb-2 border-primary">Bikes</h2>
 						<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
 							{isLoading

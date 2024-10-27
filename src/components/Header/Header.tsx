@@ -1,32 +1,30 @@
 import './Header.css';
 import {useState} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {getCurrentUser, logOut} from '../../redux/features/auth/authSlice';
+import {useAppSelector} from '../../redux/hooks';
+import {getCurrentUser} from '../../redux/features/auth/authSlice';
 import Logo from './Logo';
 import {BsSuitHeart} from 'react-icons/bs';
 import {Badge} from 'antd';
 import WishList from './Sidebar/Cart/WishList';
 import {getWishlistItems} from '../../redux/features/wishlist/wishlistSlice';
+import Avatar from '../Avatar/Avatar';
 const Header = () => {
 	// * Get Cirrent Logged in user
 	const user = useAppSelector(getCurrentUser);
 	const wishlist = useAppSelector(getWishlistItems);
-	const dispatch = useAppDispatch();
+
 	// *menu Open
 	const [openHam, setOpenHam] = useState(false);
 	//open wishlist
 	const [openWishlist, setOpenWishlist] = useState(false);
-	// *user Log Out
-	const handleLogOut = () => {
-		dispatch(logOut());
-	};
+
 	return (
 		<div className="container relative mx-auto header">
 			<div className="absolute top-10 w-full">
 				<div className="container mx-auto relative">
 					<div className="flex items-center flex-col sm:flex-row">
-						<div className="flex items-center ml-10 z-10 -mt-8 sm:-mt-0">
+						<div className="flex items-center sm:ml-10 z-10 -mt-8 sm:-mt-0">
 							<Link to={'/'}>
 								<Logo />
 							</Link>
@@ -34,12 +32,13 @@ const Header = () => {
 						<div className="ham flex z-50 items-center fixed  bg-primary  md:h-[60px] px-4 rounded-2xl mt-12 sm:mt-0">
 							<div className="cursor-pointer ">
 								{user?.userId ? (
-									<button
-										className="text-white text-2xl font-extrabold uppercase"
-										onClick={handleLogOut}
-									>
-										LogOut
-									</button>
+									// <button
+									// 	className="text-white text-2xl font-extrabold uppercase"
+									// 	onClick={handleLogOut}
+									// >
+									// 	LogOut
+									// </button>
+									<Avatar />
 								) : (
 									<Link className="text-white text-2xl font-extrabold" to={'/login'}>
 										LOGIN
@@ -92,6 +91,11 @@ const Header = () => {
 							<li className="block text-4xl sm:text-5xl md:text-[60px] xl:text-[90px] leading-[60px] md:leading-[90px] xl:leading-[130px]">
 								<NavLink onClick={() => setOpenHam(!openHam)} to={'/'} end>
 									home
+								</NavLink>
+							</li>
+							<li className="block text-4xl sm:text-5xl md:text-[60px] xl:text-[90px] leading-[60px] md:leading-[90px] xl:leading-[130px]">
+								<NavLink onClick={() => setOpenHam(!openHam)} to={'/about-us'}>
+									All Bikes
 								</NavLink>
 							</li>
 							<li className="block text-4xl sm:text-5xl md:text-[60px] xl:text-[90px] leading-[60px] md:leading-[90px] xl:leading-[130px]">
