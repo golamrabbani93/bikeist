@@ -8,7 +8,6 @@ import Brands from './Brands/Brands';
 
 const Home = () => {
 	useScrollTop();
-
 	return (
 		<div>
 			<Banner />
