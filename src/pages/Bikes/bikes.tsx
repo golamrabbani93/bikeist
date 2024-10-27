@@ -8,10 +8,12 @@ import SingleBike from '../../components/SingleBike/SingleBike';
 import CardLoader from '../Home/FeaturedBike/Loader';
 import Search from './Search/Search';
 import FilterByPrize from './FilterByPrize/FilterByPrize';
+import useScrollTop from '../../hooks/useScrollTop';
 
 const Bikes = () => {
 	const {name} = useParams<{name?: string}>();
 	const navigate = useNavigate();
+	useScrollTop();
 
 	const [query, setQuery] = useState<{name: string; value: string | undefined}[] | undefined>([]);
 	const [price, setPrice] = useState<string | undefined>(undefined);
@@ -27,20 +29,18 @@ const Bikes = () => {
 
 		if (name) {
 			newQuery.push({name: 'brand', value: name});
+			newQuery.push({name: 'page', value: '1'});
 		}
 		if (search) {
 			newQuery.push({name: 'searchTerm', value: search});
+			newQuery.push({name: 'page', value: '1'});
 		}
 		if (price) {
 			newQuery.push({name: 'sort', value: price});
+			newQuery.push({name: 'page', value: '1'});
 		}
 
 		setQuery(newQuery);
-
-		// // Reset page to '1' only when filters change
-		// if (name || search || price) {
-		// 	setPage('1');
-		// }
 	}, [name, search, price, page]);
 	const handleClaerFilter = () => {
 		navigate('/bikes');

@@ -33,7 +33,7 @@ const SingleBike = ({bike}: SingleBikeProps) => {
 		<div className="flex justify-center">
 			<div className="new-card card-compact !w-56 md:!w-72 mt-8  mx-3  bg-white/30 backdrop-blur-lg rounded-lg shadow-xl border border-white/20">
 				<div className="relative overflow-hidden">
-					<Link to={`/shop/product`}>
+					<Link to={`/bikes/${bike._id}`}>
 						<img className=" md:h-[300px] rounded-lg" src={bike.image} alt={bike.name} />
 					</Link>
 
